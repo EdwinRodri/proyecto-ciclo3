@@ -1,0 +1,29 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+html{
+    scroll-behavior: smooth;
+}
+
+.img-style{
+    height: 50px;
+}
+
+.container-fluid{
+    justify-content: space-between;
+    position: sticky;
+}
+.navbar{
+    padding: 0;
+    background-color: bisque;
+}
+.navbar-nav{
+    margin-left: auto;
+    font-size: 25px;
+}
+.division-linea{
+    margin: 0;
+}

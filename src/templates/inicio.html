@@ -3,10 +3,32 @@
 
 <!-- creamos la ruta par los estilos css -->
 {% block customCSS %}
-<!-- <link rel="stylesheet" href="../static/css/login.css"> -->
+<link rel="stylesheet" href="../static/css/inicio.css">
 {% endblock %}
 
 <!-- Creamos el body sel documento -->
 {% block body %}
-<h1>Hola mundo pagina inicial</h1>
+<div class="contenedor-inicio">
+    <!-- Section Main -->
+    <section class="contenedor-inicio2">
+        <h1>MercaHotel</h1>
+        <div class="contenedorimgPrincipal">
+            <img src="../static/img/ComidaProyecto.jpg" alt="" class="img-contenedor"> 
+        </div>
+    </section>
+    <!-- Section Abou Us -->
+    <section id="about" class="section-contenedor">
+        <div class="section-title">
+            <h1 >About Us</h1>
+        </div>
+        <div class="section-segunda">
+            <div >
+                <img src="../static/img/programacionpor.png" alt="" class="section-about-img">
+            </div>
+            <div class="text-about">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, nostrum sunt cumque mollitia repellat sed quae inventore culpa exercitationem illum nulla reprehenderit, corporis a eum itaque debitis repudiandae voluptate excepturi tempore! Nulla fuga dolore, repellat enim perspiciatis quas officia provident aliquam repellendus recusandae itaque nisi consequatur dolores veritatis iure molestias ratione pariatur dicta eligendi fugiat voluptas? Provident, iusto? Labore eos, eius nam dolores, perferendis repellat iste sit nemo non sequi delectus deserunt nihil neque quasi rerum facilis consectetur quae. Architecto accusantium, aliquam ipsam voluptatum quam est voluptas, quibusdam iure et maxime hic, cum suscipit eum recusandae. Voluptate facere nulla consequatur.</p>
+            </div>
+        </div>
+    </section>
+</div>
 {% endblock %}
