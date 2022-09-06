@@ -16,6 +16,10 @@ def login():
 def formulario_registro():
     return render_template('formulario_registro.html')#render_template hay que importarlo
 
+@app.route('/productos')
+def productos():
+    return render_template('productos-inicio.html')#render_template hay que importarlo
+
 
 #ejecutamos el servidor para que se actualice automaticamente
 if __name__ == '__main__':

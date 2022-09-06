@@ -1,0 +1,126 @@
+.navbar{
+    position: sticky;
+    top:0;
+}
+h1{
+    text-align: center;
+    padding: 30px;
+}
+    /* .title-food{
+        margin-top: 60px;
+    } */
+p{
+    font-size: 20px;
+}
+.p-events{
+    margin-right: 45px;
+    
+}
+.p-food{
+    margin-left: 45px;
+}
+.contenedor_events{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 20px;
+    height: 80vh;
+}
+    .imag-events{
+        width: 50%;
+    }
+        .eventos-productos{
+            width: 620px;
+        }
+
+.contenedor_food{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 20px;
+    height: 80vh;
+}
+    .imag-food{
+        width: 50%;
+    }
+        .food-productos{
+            width: 720px;
+        }
+
+.bonton-parrafo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 50%;
+}
+    button{
+        width: 200px;
+    }
+        .boton-food{
+            margin-left:45px;
+        }
+
+@media (max-width: 868px){
+    .contenedor-products{
+        width: 100%;
+    }
+    .contenedor_events{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 90%;
+        height: 100vh;
+        margin-top: 0;
+    }
+        .imag-events{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .eventos-productos{
+            width: 420px;
+        }
+        .bonton-parrafo{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            width: 90%;
+        }
+            button{
+                width: 200px;
+            }
+                .boton-food{
+                    margin-left:45px;
+                }
+                p{
+                    font-size: 14px;
+                }
+                .p-events{
+                    margin-right: 0;
+                }
+    .contenedor_food{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 90%;
+        height: 100vh;
+    }
+    .imag-food{
+        width: 90%;
+        margin: 0 auto;
+    }
+        .food-productos{
+            width: 320px;
+        }
+}

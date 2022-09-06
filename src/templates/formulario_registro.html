@@ -3,10 +3,44 @@
 
 <!-- creamos la ruta par los estilos css -->
 {% block customCSS %}
-<!-- <link rel="stylesheet" href="../static/css/login.css"> -->
+<link rel="stylesheet" href="../static/css/formulario_registro.css"> 
 {% endblock %}
 
 <!-- Creamos el body sel documento -->
 {% block body %}
-<h1>esta es la pagina de registro</h1>
+
+<h1 class="titel_form"><i class="fa-solid fa-bowl-food"></i>Food&Events<i class="fa-solid fa-champagne-glasses"></i></h1>
+<form class="contenedor_form">
+    <div class="container_formulario">
+        <div class="img_cont">
+            <img src="../static/img/formulario_registro.png" alt="" class="img-conte">
+        </div>
+        <div class="form_cont">
+            <h3>Crear Cuenta</h3>
+
+            <label for="name">Nombre</label>
+            <input type="text" placeholder="Nombre" id="name" required>
+
+            <label for="lastname">Apellido</label>
+            <input type="text" placeholder="Apellido" id="lastname" required>
+
+            <label for="email">Email</label>
+            <input type="email" placeholder="email@gmail.com" id="email" required>
+
+            <label for="celular">Celular</label>
+            <input type="number" placeholder="31656236569" id="celular" required>
+
+            <label for="username">Username</label>
+            <input type="text" placeholder="User" id="username" required>
+
+            <label for="password" >Password</label>
+            <input type="password" placeholder="Password" id="password" required>
+
+            <button class="btn btn-primary">Crear cuenta</button> 
+            <button class="btn btn-info"><a href="/login" class="btn btn-info">Iniciar Sesion</a>
+        </div>
+        
+    </div>
+</form>
+
 {% endblock %}

@@ -3,10 +3,30 @@
 
 <!-- creamos la ruta par los estilos css -->
 {% block customCSS %}
-<!-- <link rel="stylesheet" href="../static/css/login.css"> -->
+<link rel="stylesheet" href="../static/css/login.css"> 
 {% endblock %}
 
 <!-- Creamos el body sel documento -->
 {% block body %}
-<h1>login</h1>
+    <div class="contenedor-login">
+        <h1 class="title_login"><i class="fa-solid fa-bowl-food"></i>Food&Events<i class="fa-solid fa-champagne-glasses"></i></h1>
+        <div class="container_login">
+                <div class="imgLogin-contenedor">
+                    <img src="../static/img/login_img.png" alt="" class="login-img">
+                </div>
+                <form class="contenedor_form">
+                        <h3>Iniciar Sesion</h3>
+                
+                        <label for="username">Username</label>
+                        <input type="text" placeholder="User" id="username" required>
+                
+                        <label for="password" >Password</label>
+                        <input type="password" placeholder="Password" id="password" required>
+                
+                        <button class="btn btn-primary">Log In</button> 
+                        <p>¿No tienes cuenta? <a class="container-btn" href="/formulario_registro"><strong>Crear Cuenta</strong>  </a> </p>
+                </form>
+            </div>
+        </div>
+
 {% endblock %}
