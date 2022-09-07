@@ -1,7 +1,16 @@
 #importacion de todo lo necesario
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
+from flask_mysqldb import MySQL
 
+#creamos al app
 app= Flask(__name__)
+
+#creamos la conexion Base de Datos
+app.config['MYSQL_HOST']='localhost'
+app.config['MYSQL_USER']='root'
+app.config['MYSQL_PASSWORD']=''
+app.config['MYSQL_DB']='bd_proyecto'
+db = MySQL(app)
 
 #creamos la ruta al archivo html para que se visualice en el navegador
 @app.route('/')
@@ -10,16 +19,36 @@ def pagina_inicio():
 
 @app.route('/login')
 def login():
-    return render_template('login.html')#render_template hay que importarlo
+    return render_template('login.html')
 
 @app.route('/formulario_registro')
 def formulario_registro():
-    return render_template('formulario_registro.html')#render_template hay que importarlo
+    return render_template('formulario_registro.html')
+
 
 @app.route('/productos')
 def productos():
-    return render_template('productos-inicio.html')#render_template hay que importarlo
+    return render_template('productos-inicio.html')
 
+
+#metodos [POST, GET, UPDATE, DELETE] Base de Datos
+@app.route('/add', methods=['POST'])
+def add():
+    if request.method == 'POST': #validamos que sea el metodo POST
+        nombre = request.form['nombre']#accedemos a los datos del formulario por la funcion request.form
+        apellido = request.form['apellido']#lo que va entre corchetes es el name que esta en el input   del formulario
+        correo = request.form['correo']
+        celular = request.form['celular']
+        usuario = request.form['usuario']
+        contraseña = request.form['contraseña']     
+        #generamos el curso paso fundamental, "db" es como guardamos la conexion de la base de datos arriba
+        cursor = db.connection.cursor()
+        #creamos la sentencia SQL
+        cursor.execute('INSERT INTO registro (nombre, apellido, celular, email, usuario, contraseña) VALUES (%s,%s, %s, %s, %s, %s)', (nombre, apellido, celular, correo, usuario, contraseña))
+        #ejecutamos la sentencia con la conexion a la base de datos
+        db.connection.commit()
+        return redirect(url_for('formulario_registro')) #dentro de los parentecis url_for, va la funcion
+                                                        #de la ruta que queremos redirecionarno
 
 #ejecutamos el servidor para que se actualice automaticamente
 if __name__ == '__main__':
