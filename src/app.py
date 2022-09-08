@@ -1,10 +1,10 @@
 #importacion de todo lo necesario
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mysqldb import MySQL
 
 #creamos al app
 app= Flask(__name__)
-
+app.secret_key = 'Hola_mundo'
 #creamos la conexion Base de Datos
 app.config['MYSQL_HOST']='localhost'
 app.config['MYSQL_USER']='root'
@@ -12,6 +12,8 @@ app.config['MYSQL_PASSWORD']=''
 app.config['MYSQL_DB']='bd_proyecto'
 db = MySQL(app)
 
+
+app.secret_key = "super secret key"
 #creamos la ruta al archivo html para que se visualice en el navegador
 @app.route('/')
 def pagina_inicio():
@@ -50,6 +52,26 @@ def add():
         return redirect(url_for('formulario_registro')) #dentro de los parentecis url_for, va la funcion
                                                         #de la ruta que queremos redirecionarno
 
+#metodo validar datos de iniciar sesion
+@app.route('/inicio', methods=['GET', 'POST'])                                                     
+def iniciar_sesion():
+    if request.method == 'POST':
+        usuario = request.form['username']
+        contraseña = request.form['password']
+        # print(usuario)
+        # print(contraseña)
+        cursor = db.connection.cursor()
+        cursor.execute('SELECT * FROM registro WHERE usuario=%s AND contraseña=%s',(usuario, contraseña))
+        cuenta = cursor.fetchone()
+        
+        if cuenta:
+            session['loggedin'] = True
+            session['username'] = cuenta[5]
+            return redirect(url_for('productos'))
+        else:
+            return 'Algo salio mal'
+    
+    return redirect(url_for('login'))
 #ejecutamos el servidor para que se actualice automaticamente
 if __name__ == '__main__':
     app.run(debug=True, port=4555)

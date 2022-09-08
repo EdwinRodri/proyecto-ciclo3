@@ -14,14 +14,14 @@
                 <div class="imgLogin-contenedor">
                     <img src="../static/img/login_img.png" alt="" class="login-img">
                 </div>
-                <form class="contenedor_form">
+                <form class="contenedor_form" action="/inicio" method="POST">
                         <h3>Iniciar Sesion</h3>
                 
                         <label for="username">Username</label>
-                        <input type="text" placeholder="User" id="username" required>
+                        <input type="text" placeholder="User"  name='username'equired>
                 
                         <label for="password" >Password</label>
-                        <input type="password" placeholder="Password" id="password" required>
+                        <input type="password" placeholder="Password"  name='password'equired>
                 
                         <button class="btn btn-primary">Log In</button> 
                         <p>¿No tienes cuenta? <a class="container-btn" href="/formulario_registro"><strong>Crear Cuenta</strong>  </a> </p>
