@@ -14,19 +14,28 @@
                 <div class="imgLogin-contenedor">
                     <img src="../static/img/login_img.png" alt="" class="login-img">
                 </div>
-                <form class="contenedor_form" action="/inicio" method="POST">
+                {% with mensage = get_flashed_messages() %}
+                {% if mensage %}
+                {%for mensa in mensage %}
+                    <p>{{mensa}}</p>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <form class="contenedor_form" action="/inicio" method="POST" id="formulario_login">
                         <h3>Iniciar Sesion</h3>
                 
                         <label for="username">Username</label>
-                        <input type="text" placeholder="User"  name='username'equired>
+                        <input type="text" placeholder="User"  name='username' id="usuarioLogin" required>
                 
                         <label for="password" >Password</label>
-                        <input type="password" placeholder="Password"  name='password'equired>
+                        <input type="password" placeholder="Password"  name='password' id="contraLogin" required>
                 
                         <button class="btn btn-primary">Log In</button> 
                         <p>¿No tienes cuenta? <a class="container-btn" href="/formulario_registro"><strong>Crear Cuenta</strong>  </a> </p>
                 </form>
             </div>
         </div>
+
+        <script src="../static/js/login.js"></script>
 
 {% endblock %}

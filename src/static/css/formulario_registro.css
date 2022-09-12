@@ -4,6 +4,13 @@
     text-align: center;
 }
 
+.p-mensaje{
+    font-size: 30px;
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}
+
 .contenedor_form{
     display: flex;
     flex-direction: column;
