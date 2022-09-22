@@ -16,6 +16,9 @@ db = MySQL(app)
 
 
 app.secret_key = "super secret key"
+
+
+
 #creamos la ruta al archivo html para que se visualice en el navegador
 @app.route('/')
 def pagina_inicio():
@@ -33,6 +36,24 @@ def formulario_registro():
 @app.route('/productos')
 def productos():
     return render_template('productos-inicio.html')
+
+@app.route('/food')
+def food():
+    return render_template('crudFood.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #metodos [POST, GET, UPDATE, DELETE] Base de Datos
@@ -56,7 +77,7 @@ def add():
         cursor.execute('INSERT INTO registro (nombre, apellido, celular, email, usuario, contraseña) VALUES (%s,%s, %s, %s, %s, %s)', (nombre, apellido, celular, correo, userFinal, contraseña))
         #ejecutamos la sentencia con la conexion a la base de datos
         db.connection.commit()
-        flash('Contacto agregado con exito, su usuario es: ' userFinal)
+        flash('Contacto agregado con exito, su usuario es: ' + userFinal)
         return redirect(url_for('formulario_registro')) #dentro de los parentecis url_for, va la funcion
                                                            #de la ruta que queremos redirecionarno
         
@@ -85,6 +106,18 @@ def iniciar_sesion():
             return redirect(url_for('login'))
     
     return redirect(url_for('login'))
+
+
+
+
+
+
+
+
+
+
+
+
 #ejecutamos el servidor para que se actualice automaticamente
 if __name__ == '__main__':
     app.run(debug=True, port=4555)
