@@ -28,6 +28,16 @@ def pagina_inicio():
 def login():
     return render_template('login.html')
 
+@app.route('/logout')
+def logout():
+    session.pop('loggedin', None)
+    session.pop('username', None)
+    return render_template('login.html')
+
+@app.route('/crudAdmin')
+def crudAmin():
+    return render_template('crudAdminInformacion.html')
+
 @app.route('/formulario_registro')
 def formulario_registro():
     return render_template('formulario_registro.html')
@@ -40,6 +50,10 @@ def productos():
 @app.route('/food')
 def food():
     return render_template('crudFood.html')
+
+@app.route('/administrarFood')
+def administrarfood():
+    return render_template('administrarFood.html')
 
 
 
@@ -90,20 +104,36 @@ def iniciar_sesion():
         contraseña = request.form['password']
         # print(usuario)
         # print(contraseña)
-        cursor = db.connection.cursor()#creamos el cursor para manejar la conexion a la base de datos y lo guardamos en una barible para que se mas comodo
-        cursor.execute('SELECT * FROM registro WHERE usuario=%s AND contraseña=%s',(usuario, contraseña))#ejecutamos la sentencia SQL con el cursor
-        cuenta = cursor.fetchone()#y guardamos los datos que me trae la ejecucion de la sentencia
-        #
         
-        if cuenta:
-            session['loggedin'] = True
-            session['username'] = cuenta[5] 
-            return redirect(url_for('productos'))
+        
+        if usuario != 'admin01':
+            cursor = db.connection.cursor()#creamos el cursor para manejar la conexion a la base de datos y lo guardamos en una barible para que se mas comodo
+            cursor.execute('SELECT * FROM registro WHERE usuario=%s AND contraseña=%s',(usuario, contraseña))#ejecutamos la sentencia SQL con el cursor
+            cuenta = cursor.fetchone()#y guardamos los datos que me trae la ejecucion de la sentencia            
+            if cuenta:
+                session['loggedin'] = True
+                session['username'] = cuenta[5] 
+                return redirect(url_for('productos'))
+            else:
+                usuario=''
+                contraseña=''
+                flash('El usuario no esta registrado, porfavor crea una cuenta')
+                return redirect(url_for('login'))
+        
         else:
-            usuario=''
-            contraseña=''
-            flash('El usuario no esta registrado, porfavor crea una cuenta')
-            return redirect(url_for('login'))
+            cursor = db.connection.cursor()#creamos el cursor para manejar la conexion a la base de datos y lo guardamos en una barible para que se mas comodo
+            cursor.execute('SELECT * FROM registro WHERE usuario=%s AND contraseña=%s',('admin01', contraseña))#ejecutamos la sentencia SQL con el cursor
+            cuenta = cursor.fetchone()#y guardamos los datos que me trae la ejecucion de la sentencia
+            if cuenta:
+                session['loggedin'] = True
+                session['username'] = cuenta[5] 
+                return redirect(url_for('crudAmin'))
+            else:
+                usuario=''
+                contraseña=''
+                flash('El usuario no esta registrado, porfavor crea una cuenta')
+                return redirect(url_for('login'))
+            
     
     return redirect(url_for('login'))
 

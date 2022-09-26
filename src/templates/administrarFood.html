@@ -1,0 +1,33 @@
+<!-- Imprtamos todo el ducumento de layout -->
+{% extends './crudAmin.html' %}
+
+<!-- creamos la ruta par los estilos css -->
+{% block customCSS %}
+<link rel="stylesheet" href="../static/css/inicio.css">
+{% endblock %}
+
+<!-- Creamos el body sel documento -->
+{% block body %}
+<h1>Este es el Crud de la Comida</h1>
+    <form action="">
+        <label for="">Nombre</label>
+        <input type="text" name="Nombre" id="">
+        <label for="">Descripcion</label>
+        <input type="text" name="Descripcion" id="">
+        <label for="">Precio</label>
+        <input type="text" name="Precio" id="">
+        <button type="submit">Agregar</button>
+    </form>
+    <!-- <table>
+        <td>
+            <tr>Nombre</tr>
+            <tr>Descripcion</tr>
+            <tr>Precio</tr>
+        </td>
+        <tbody>
+            <th>Hamburguesa</th>
+            <th>Carne, Lechuga, Tomate</th>
+            <th>Free</th>
+        </tbody>
+    </table> -->
+{% endblock %}

@@ -1,0 +1,43 @@
+<!-- Imprtamos todo el ducumento de layout -->
+{% extends './crudAmin.html' %}
+
+<!-- creamos la ruta par los estilos css -->
+{% block customCSS %}
+<link rel="stylesheet" href="../static/css/inicio.css">
+{% endblock %}
+
+<!-- Creamos el body sel documento -->
+{% block body %}
+<div class="contenedor-inicio">
+    <!-- Section Main -->
+    <section class="contenedor-inicio2">
+        <h1 class="title"><i class="fa-solid fa-bowl-food"></i>Food&Events<i class="fa-solid fa-champagne-glasses"></i></h1>
+        <h1>Administrar Food</h1>
+        <div class="contenedort-inicial">
+            <div class="contenedorimgPrincipal">
+                <img src="../static/img/Programacion-web.png" alt="" class="img-contenedor"> 
+                <!-- <img src="../static/img/ComidaProyecto.jpg" alt="" class="img-contenedor">  -->
+            </div>
+            <div class="parrafo-inicial"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam odio error obcaecati quos recusandae? Officia iusto illum fugit, itaque voluptatibus doloribus natus cumque inventore quae officiis amet autem soluta quod libero laborum, eaque aliquid aut dolore ipsam laboriosam corporis! Molestias nihil cumque ab, inventore illo hic dicta omnis! Reiciendis, ipsum.</p>
+                <button><a href="/administrarFood">Administrar</a> </button>
+            </div>
+        </div>
+    </section>
+    <!-- Section Abou Us -->
+    <section id="about" class="section-contenedor">
+        <div class="section-title">
+            <h1 >Administrar Eventos</h1>
+        </div>
+        <div class="section-segunda">
+            <div >
+                <img src="../static/img/programacionpor.png" alt="" class="section-about-img">
+
+            </div>
+            <div class="text-about">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, nostrum sunt cumque mollitia repellat sed quae inventore culpa exercitationem illum nulla reprehenderit, corporis a eum itaque debitis repudiandae voluptate excepturi tempore! Nulla fuga dolore, repellat enim perspiciatis quas officia provident aliquam repellendus recusandae itaque nisi consequatur dolores veritatis iure molestias ratione pariatur dicta eligendi fugiat voluptas? Provident, iusto? Labore eos, eius nam dolores, perferendis repellat iste sit nemo non sequi delectus deserunt nihil neque quasi rerum facilis consectetur quae. </p>
+                <button>Administrar</button>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
