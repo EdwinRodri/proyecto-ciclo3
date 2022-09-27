@@ -3,31 +3,85 @@
 
 <!-- creamos la ruta par los estilos css -->
 {% block customCSS %}
-<link rel="stylesheet" href="../static/css/inicio.css">
+<link rel="stylesheet" href="../static/css/inicio.css" />
 {% endblock %}
-
+{% block link %}
+<a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-gear"></i> Crear</a>
+<a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-gear"></i> Productos</a>
+{% endblock %}
 <!-- Creamos el body sel documento -->
 {% block body %}
-<h1>Este es el Crud de la Comida</h1>
-    <form action="">
-        <label for="">Nombre</label>
-        <input type="text" name="Nombre" id="">
-        <label for="">Descripcion</label>
-        <input type="text" name="Descripcion" id="">
-        <label for="">Precio</label>
-        <input type="text" name="Precio" id="">
-        <button type="submit">Agregar</button>
-    </form>
-    <!-- <table>
+<!-- <h1 class="title_login"><i class="fa-solid fa-bowl-food"></i>Food&Events<i class="fa-solid fa-champagne-glasses"></i></h1> -->
+{% with mensage = get_flashed_messages() %} {% if mensage %} {%for mensa in
+mensage %}
+<!-- <p class="p-mensaje">{{mensa}}</p> -->
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{mensa}}
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+{% endfor %} {% endif %} {% endwith %}
+<div class="card">
+  <form action="/addFood" method="post" class="input flex-nowrap">
+    <h3>Tabla de Registro </h3>
+    <label for="">Nombre</label>
+    <input
+      class="form-control"
+      type="text"
+      name="Nombre"
+      id=""
+      placeholder="Nombre Comida"
+    />
+    <label for="">Descripcion</label>
+    <textarea
+      class="form-control"
+      name="Descripcion"
+      id=""
+      cols="30"
+      rows="0"
+      placeholder="papas, salsa, entre otros"
+    ></textarea>
+    <label for="">Precio</label>
+    <input
+      class="form-control"
+      type="text"
+      name="Precio"
+      id=""
+      placeholder="10"
+    />
+    <button class="btn btn-primary botonCrear" type="submit">Agregar</button>
+  </form>
+</div>
+<div class="sectionTabla">
+  <h1>Productos Disponibles</h1>
+
+  <table class="table table-striped table-bordered table-sm">
+    <thead>
+      <tr>
+        <td>Nombre</td>
+        <td>Descripcion</td>
+        <td>Precio</td>
+        <td>Operaciones</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in datos %}
+      <tr>
+        <td>{{i.1}}</td>
+        <td>{{i.2}}</td>
+        <td>{{i.3}}</td>
         <td>
-            <tr>Nombre</tr>
-            <tr>Descripcion</tr>
-            <tr>Precio</tr>
+            <a href="/edit/{{i.0}}" class="btn btn-primary">Editar</a>
+            <a href="/delete/{{i.0}}" class="btn btn-danger">Eliminar</a>
         </td>
-        <tbody>
-            <th>Hamburguesa</th>
-            <th>Carne, Lechuga, Tomate</th>
-            <th>Free</th>
-        </tbody>
-    </table> -->
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
 {% endblock %}

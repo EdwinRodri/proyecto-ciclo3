@@ -3,7 +3,7 @@
     margin: 0;
     box-sizing: border-box;
     scroll-behavior: smooth;
-    background-color: bisque;
+    /* background-color: bisque; */
 }
 html{
     scroll-behavior: smooth;
@@ -19,7 +19,7 @@ html{
 }
 .navbar{
     padding: 0;
-    background-color: bisque;
+    /* background-color: bisque; */
     position: sticky;
     top: 0;
 }
@@ -30,4 +30,8 @@ html{
 }
 .division-linea{
     margin: 0;
+}
+
+.container{
+    margin-top: 50px;
 }

@@ -7,6 +7,7 @@ import random
 app= Flask(__name__)
 #comoponente necesario para hacer el Login convertir la password en una secret_key
 app.secret_key = 'Hola_mundo'
+
 #creamos la conexion Base de Datos
 app.config['MYSQL_HOST']='localhost'
 app.config['MYSQL_USER']='root'
@@ -18,6 +19,7 @@ db = MySQL(app)
 app.secret_key = "super secret key"
 
 
+#rutas Principales
 
 #creamos la ruta al archivo html para que se visualice en el navegador
 @app.route('/')
@@ -53,22 +55,18 @@ def food():
 
 @app.route('/administrarFood')
 def administrarfood():
-    return render_template('administrarFood.html')
+    #traemos los datos de la base de datos para mostrarlos cuando se vea esta pagina
+    cursor = db.connection.cursor()
+    cursor.execute('SELECT * FROM food')
+    data = cursor.fetchall()#esta funcion guarda los datos selecionados de la tabla de la BD
+    #print(data)
+    #pasamos esos datos como parametros para que el html de esta pagina los renderice por medio de un Bucle for
+    return render_template('administrarFood.html', datos= data)
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+#rutas para la pagina Login y Registro
 
 #metodos [POST, GET, UPDATE, DELETE] Base de Datos
 @app.route('/add', methods=['POST'])
@@ -104,8 +102,7 @@ def iniciar_sesion():
         contraseña = request.form['password']
         # print(usuario)
         # print(contraseña)
-        
-        
+
         if usuario != 'admin01':
             cursor = db.connection.cursor()#creamos el cursor para manejar la conexion a la base de datos y lo guardamos en una barible para que se mas comodo
             cursor.execute('SELECT * FROM registro WHERE usuario=%s AND contraseña=%s',(usuario, contraseña))#ejecutamos la sentencia SQL con el cursor
@@ -140,13 +137,82 @@ def iniciar_sesion():
 
 
 
+#Rutas para administrarFood
 
+#Ruta Agregar nuevo Food
+@app.route('/addFood', methods=['POST'])
+def addFood():
+    if request.method == 'POST': #validamos que sea el metodo POST
+        nombre = request.form['Nombre']#accedemos a los datos del formulario por la funcion request.form
+        descripcion = request.form['Descripcion']
+        precio = request.form['Precio']
+        # print(nombre)
+        # print(descripcion)
+        # print(precio)
+         
+        #generamos el curso paso fundamental, "db" es como guardamos la conexion de la base de datos arriba
+        cursor = db.connection.cursor()
+        #creamos la sentencia SQL
+        cursor.execute('INSERT INTO food (Nombre, Descripcion, Precio) VALUES (%s,%s, %s)', (nombre, descripcion, precio))
+        #ejecutamos la sentencia con la conexion a la base de datos
+        db.connection.commit()
+        flash('la comida se agrego con exido')
+        return redirect(url_for('administrarfood')) #dentro de los parentecis url_for, va la funcion
 
+#Ruta eliminar un Food
+@app.route('/delete/<string:id>')
+def deleteFood(id):
+    cursor = db.connection.cursor()
+    cursor.execute('Delete FROM food WHERE id = %s',[id])
+    db.connection.commit()
+    flash('El producto ha sido Removido con Exito')
+    return redirect(url_for('administrarfood'))
 
-
-
-
-
+#Ruta Editar un Food
+#esta ruta me recolecta los datos que se van actualizar y me los pega en los campos
+@app.route('/edit/<string:id>')
+def editFood(id):
+    #creamos el cursor para ejecutar loa sentencia SQL
+    cursor = db.connection.cursor()
+    #creamos la Sentencia
+    cursor.execute('SELECT * FROM food WHERE id = %s',[id])
+    #recolectamos los datos de esa senyencia con el cursor y la funcion .fetchall()
+    data = cursor.fetchall()
+    #print(data[0])
+    #despues de terminar renderizamos la pagina
+    return render_template('editFood.html', datos = data[0])
+#esta sigue siendo la ruta /edit, pero esta parte permite editar los elemntos traidos con anterioridad
+@app.route('/update/<string:id>', methods=['POST'])
+def updateFood(id):
+    if request.method == 'POST':
+        #recolectamos los datos del formulario
+        nombre = request.form['Nombre']#accedemos a los datos del formulario por la funcion request.form
+        descripcion = request.form['Descripcion']
+        precio = request.form['Precio']
+        # print(nombre)
+        #creamos el cursor 
+        cursor = db.connection.cursor()
+        #creamos la sentencia SQL con el cursor
+        cursor.execute("""
+                    UPDATE food 
+                    SET Nombre = %s,
+                            Descripcion = %s,
+                            Precio = %s
+                        WHERE id = %s
+                    """, (nombre, descripcion, precio, id))
+        #ejecutamos esa sentencia SQL
+        db.connection.commit()
+        #mostramos un mensaje por pantalla
+        flash('Producto Actualizado con Exito')
+        #renderizamos la pagina requerida
+        return redirect(url_for('administrarfood'))
+        
+        
+    
+    
+    
+    
+    
 
 #ejecutamos el servidor para que se actualice automaticamente
 if __name__ == '__main__':

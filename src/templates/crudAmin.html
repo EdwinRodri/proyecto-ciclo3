@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- Boostrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+     rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+     <link rel="stylesheet" href="https://bootswatch.com/5/materia/bootstrap.min.css">
     <!-- estilos css -->
     {% block customCSS %}
     {% endblock %}
@@ -14,16 +16,18 @@
 </head>
 <body>
     <div class="contenedor">
-        <nav class="navbar navbar-expand-lg navbar-light ">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="/"><i class="fa-solid fa-bowl-food"></i> Food&Events <i class="fa-solid fa-champagne-glasses"></i></a>
+          <a class="navbar-brand" href="#"><i class="fa-solid fa-bowl-food"></i> Food&Events <i class="fa-solid fa-champagne-glasses"></i></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
+              {% block link %}
               <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-gear"></i> Comida</a>
               <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-gear"></i> Eventos</a>
+              {% endblock%}
               <a class="nav-link" href="/login"><i class="fa-sharp fa-solid fa-right-to-bracket"></i> Salir</a>
               <!-- <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
             </div>
@@ -31,8 +35,10 @@
         </div>
         </nav>
         <hr class="division-linea">
-        {% block body %}
-        {% endblock %}
+        <div class="container">
+          {% block body %}
+          {% endblock %}
+        </div>
         <script src="https://kit.fontawesome.com/2264b308ab.js" crossorigin="anonymous"></script>
     </div>
 

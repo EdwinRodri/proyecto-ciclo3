@@ -3,39 +3,71 @@
 
 <!-- creamos la ruta par los estilos css -->
 {% block customCSS %}
-<link rel="stylesheet" href="../static/css/login.css"> 
+<link rel="stylesheet" href="../static/css/login.css" />
 {% endblock %}
 
 <!-- Creamos el body sel documento -->
 {% block body %}
-    <div class="contenedor-login">
-        <h1 class="title_login"><i class="fa-solid fa-bowl-food"></i>Food&Events<i class="fa-solid fa-champagne-glasses"></i></h1>
-        <div class="container_login">
-                <div class="imgLogin-contenedor">
-                    <img src="../static/img/login_img.png" alt="" class="login-img">
-                </div>
-                {% with mensage = get_flashed_messages() %}
-                {% if mensage %}
-                {%for mensa in mensage %}
-                    <p>{{mensa}}</p>
-                {% endfor %}
-                {% endif %}
-                {% endwith %}
-                <form class="contenedor_form" action="/inicio" method="POST" id="formulario_login">
-                        <h3>Iniciar Sesion</h3>
-                
-                        <label for="username">Username</label>
-                        <input type="text" placeholder="User"  name='username' id="usuarioLogin" required>
-                
-                        <label for="password" >Password</label>
-                        <input type="password" placeholder="Password"  name='password' id="contraLogin" required>
-                
-                        <button class="btn btn-primary">Log In</button> 
-                        <p>¿No tienes cuenta? <a class="container-btn" href="/formulario_registro"><strong>Crear Cuenta</strong>  </a> </p>
-                </form>
-            </div>
-        </div>
+<div class="contenedor-login">
+  <h1 class="title_login">
+    <i class="fa-solid fa-bowl-food"></i>Food&Events<i
+      class="fa-solid fa-champagne-glasses"
+    ></i>
+  </h1>
+  <div class="container_login">
+    <div class="imgLogin-contenedor">
+      <img src="../static/img/login_img.png" alt="" class="login-img" />
+    </div>
 
-        <script src="../static/js/login.js"></script>
+    <form
+      class="contenedor_form"
+      action="/inicio"
+      method="POST"
+      id="formulario_login"
+    >
+      {% with mensage = get_flashed_messages() %} {% if mensage %} {%for mensa
+      in mensage %}
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{mensa}}
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+      </div>
+      {% endfor %} {% endif %} {% endwith %}
+      <h3>Iniciar Sesion</h3>
+
+      <label for="username">Username</label>
+      <input
+        type="text"
+        placeholder="User"
+        name="username"
+        id="usuarioLogin"
+        required
+      />
+
+      <label for="password">Password</label>
+      <input
+        type="password"
+        placeholder="Password"
+        name="password"
+        id="contraLogin"
+        required
+      />
+
+      <button class="btn btn-primary">Log In</button>
+      <p>
+        ¿No tienes cuenta?
+        <a class="container-btn" href="/formulario_registro"
+          ><strong>Crear Cuenta</strong>
+        </a>
+      </p>
+    </form>
+  </div>
+</div>
+
+<script src="../static/js/login.js"></script>
 
 {% endblock %}

@@ -1,0 +1,25 @@
+<!-- Imprtamos todo el ducumento de layout -->
+{% extends './crudAmin.html' %}
+
+<!-- creamos la ruta par los estilos css -->
+{% block customCSS %}
+<link rel="stylesheet" href="../static/css/inicio.css">
+{% endblock %}
+
+<!-- Creamos el body sel documento -->
+{% block body %}
+<h1>Este es el Formulario de Editar</h1>
+
+<form action="/update/{{datos.0}}" method="post">
+    <label for="">Nombre</label>
+    <input type="text" name="Nombre" id="" placeholder="Nombre Comida" value="{{datos.1}}">
+    <label for="">Descripcion</label>
+    <input type="text" name="Descripcion" id="" placeholder="Nombre Comida" value="{{datos.2}}">
+    <label for="">Precio</label>
+    <input type="text" name="Precio" id="" placeholder="10" value="{{datos.3}}">
+    <button type="submit" class="btn btn-primary">Editar</button>
+</form>
+
+
+    
+{% endblock %}

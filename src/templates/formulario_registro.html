@@ -10,19 +10,23 @@
 {% block body %}
 
 <h1 class="titel_form"><i class="fa-solid fa-bowl-food"></i>Food&Events<i class="fa-solid fa-champagne-glasses"></i></h1>
-{% with mensage = get_flashed_messages() %}
-{% if mensage %}
-{%for mensa in mensage %}
-    <p class="p-mensaje">{{mensa}}</p>
-{% endfor %}
-{% endif %}
-{% endwith %}
+
 <form class="contenedor_form" action="/add" method="POST" id="formulario">
     <div class="container_formulario">
         <div class="img_cont">
             <img src="../static/img/formulario_registro.png" alt="" class="img-conte">
         </div>
         <div class="form_cont" >
+            {% with mensage = get_flashed_messages() %}
+            {% if mensage %}
+            {%for mensa in mensage %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{mensa}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
             <h3>Crear Cuenta</h3>
 
             <label for="name">Nombre</label>
