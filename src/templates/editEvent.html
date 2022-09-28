@@ -10,14 +10,14 @@
 {% block body %}
 
 <div class="card formCrear">
-  <form action="/update/{{datos.0}}" method="post" enctype="multipart/form-data" class="input flex-nowrap">
-    <h3>Editar Producto</h3>
-    <label for="">Nombre</label>
+  <form action="/updateEvents/{{datos.0}}" enctype="multipart/form-data" method="post" class="input flex-nowrap">
+    <h3>Editar Evento</h3>
+    <label for="">Nombre Evento</label>
     <input
       type="text"
       name="Nombre"
       id=""
-      placeholder="Nombre Comida"
+      placeholder="Nombre Evento"
       value="{{datos.1}}"
       class="form-control"
     />
@@ -30,26 +30,26 @@
       value="{{datos.2}}"
       class="form-control"
     />
-    <label for="">Descripcion</label>
+    <label for="">Lugar Evento</label>
     <input
       type="text"
       name="Descripcion"
       id=""
-      placeholder="Nombre Comida"
+      placeholder="Descripcion"
       value="{{datos.3}}"
       class="form-control"
     />
-    <label for="">Precio</label>
+    <label for="">Hora</label>
     <input
       type="text"
       name="Precio"
       id=""
-      placeholder="10"
+      placeholder="10:00"
       value="{{datos.4}}"
       class="form-control"
     />
     <button type="submit" class="btn btn-warning">Editar</button>
-    <a href="/administrarFood" class="btn btn-dark">Cancelar</a>
+    <a href="/administrarEvents" class="btn btn-dark">Cancelar</a>
   </form>
 </div>
 

@@ -1,6 +1,7 @@
 #importacion de todo lo necesario
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_mysqldb import MySQL
+from datetime import datetime
 import random
 
 #creamos al app
@@ -62,6 +63,16 @@ def administrarfood():
     #print(data)
     #pasamos esos datos como parametros para que el html de esta pagina los renderice por medio de un Bucle for
     return render_template('administrarFood.html', datos= data)
+
+@app.route('/administrarEvents')
+def administrarEvents():
+    #traemos los datos de la base de datos para mostrarlos cuando se vea esta pagina
+    cursor = db.connection.cursor()
+    cursor.execute('SELECT * FROM eventos')
+    data = cursor.fetchall()#esta funcion guarda los datos selecionados de la tabla de la BD
+    #print(data)
+    #pasamos esos datos como parametros para que el html de esta pagina los renderice por medio de un Bucle for
+    return render_template('administrarEvents.html', datos= data)
 
 
 
@@ -144,8 +155,16 @@ def iniciar_sesion():
 def addFood():
     if request.method == 'POST': #validamos que sea el metodo POST
         nombre = request.form['Nombre']#accedemos a los datos del formulario por la funcion request.form
+        foto = request.files['File']
         descripcion = request.form['Descripcion']
         precio = request.form['Precio']
+        
+        now = datetime.now()
+        tiempo = now.strftime("%Y%H%M%S")
+        
+        if foto.filename != '':
+            nuevoNombreFoto = tiempo+foto.filename
+            foto.save("uploads/"+nuevoNombreFoto)
         # print(nombre)
         # print(descripcion)
         # print(precio)
@@ -153,7 +172,7 @@ def addFood():
         #generamos el curso paso fundamental, "db" es como guardamos la conexion de la base de datos arriba
         cursor = db.connection.cursor()
         #creamos la sentencia SQL
-        cursor.execute('INSERT INTO food (Nombre, Descripcion, Precio) VALUES (%s,%s, %s)', (nombre, descripcion, precio))
+        cursor.execute('INSERT INTO food (Nombre, Foto, Descripcion, Precio) VALUES (%s,%s, %s, %s)', (nombre, nuevoNombreFoto, descripcion, precio))
         #ejecutamos la sentencia con la conexion a la base de datos
         db.connection.commit()
         flash('la comida se agrego con exido')
@@ -187,28 +206,125 @@ def updateFood(id):
     if request.method == 'POST':
         #recolectamos los datos del formulario
         nombre = request.form['Nombre']#accedemos a los datos del formulario por la funcion request.form
+        foto = request.files['File']
         descripcion = request.form['Descripcion']
         precio = request.form['Precio']
         # print(nombre)
+        
+        now = datetime.now()
+        tiempo = now.strftime("%Y%H%M%S")
+        
+        if foto.filename != '':
+            nuevoNombreFoto = tiempo+foto.filename
+            foto.save("uploads/"+nuevoNombreFoto)
+        
         #creamos el cursor 
         cursor = db.connection.cursor()
         #creamos la sentencia SQL con el cursor
         cursor.execute("""
                     UPDATE food 
                     SET Nombre = %s,
-                            Descripcion = %s,
-                            Precio = %s
-                        WHERE id = %s
-                    """, (nombre, descripcion, precio, id))
+                        Foto = %s,
+                        Descripcion = %s,
+                        Precio = %s
+                    WHERE id = %s
+                    """, (nombre, nuevoNombreFoto, descripcion, precio, id))
         #ejecutamos esa sentencia SQL
         db.connection.commit()
         #mostramos un mensaje por pantalla
         flash('Producto Actualizado con Exito')
         #renderizamos la pagina requerida
         return redirect(url_for('administrarfood'))
+
+
+
+#Rutas para administrarEvents 
+
+#ruta Agregar nuevo Evento  
+@app.route('/addEvents', methods=['POST'])
+def addEvents():
+    if request.method == 'POST': #validamos que sea el metodo POST
+        nombre = request.form['Nombre']#accedemos a los datos del formulario por la funcion request.form
+        foto = request.files['File']
+        descripcion = request.form['Descripcion']
+        precio = request.form['Precio']
         
+        now = datetime.now()
+        tiempo = now.strftime("%Y%H%M%S")
         
-    
+        if foto.filename != '':
+            nuevoNombreFoto = tiempo+foto.filename
+            foto.save("uploads/"+nuevoNombreFoto)
+        # print(nombre)
+        # print(descripcion)
+        # print(precio)
+         
+        #generamos el curso paso fundamental, "db" es como guardamos la conexion de la base de datos arriba
+        cursor = db.connection.cursor()
+        #creamos la sentencia SQL
+        cursor.execute('INSERT INTO eventos (NombreEvento, Imagen, Lugar, Hora) VALUES (%s,%s, %s, %s)', (nombre, nuevoNombreFoto, descripcion, precio))
+        #ejecutamos la sentencia con la conexion a la base de datos
+        db.connection.commit()
+        flash('El Evento se agrego con exido')
+        return redirect(url_for('administrarEvents')) #dentro de los parentecis url_for, va la funcion
+
+#Ruta eliminar un Events
+@app.route('/deleteEvents/<string:id>')
+def deleteEvents(id):
+    cursor = db.connection.cursor()
+    cursor.execute('Delete FROM eventos WHERE id = %s',[id])
+    db.connection.commit()
+    flash('El Evento ha sido Removido con Exito')
+    return redirect(url_for('administrarEvents'))
+
+#Ruta Editar un Events
+#esta ruta me recolecta los datos que se van actualizar y me los pega en los campos
+@app.route('/editEvents/<string:id>')
+def editEvents(id):
+    #creamos el cursor para ejecutar loa sentencia SQL
+    cursor = db.connection.cursor()
+    #creamos la Sentencia
+    cursor.execute('SELECT * FROM eventos WHERE id = %s',[id])
+    #recolectamos los datos de esa senyencia con el cursor y la funcion .fetchall()
+    data = cursor.fetchall()
+    #print(data[0])
+    #despues de terminar renderizamos la pagina
+    return render_template('editEvent.html', datos = data[0])
+#esta sigue siendo la ruta /editEvents, pero esta parte permite editar los elemntos traidos con anterioridad
+@app.route('/updateEvents/<string:id>', methods=['POST'])
+def updateEvents(id):
+    if request.method == 'POST':
+        #recolectamos los datos del formulario
+        nombre = request.form['Nombre']#accedemos a los datos del formulario por la funcion request.form
+        foto = request.files['File']
+        descripcion = request.form['Descripcion']
+        precio = request.form['Precio']
+        # print(nombre)
+        
+        now = datetime.now()
+        tiempo = now.strftime("%Y%H%M%S")
+        
+        if foto.filename != '':
+            nuevoNombreFoto = tiempo+foto.filename
+            foto.save("uploads/"+nuevoNombreFoto)
+        
+        #creamos el cursor 
+        cursor = db.connection.cursor()
+        #creamos la sentencia SQL con el cursor
+        cursor.execute("""
+                    UPDATE eventos 
+                    SET NombreEvento = %s,
+                            Imagen = %s,
+                            Lugar = %s,
+                            Hora = %s
+                        WHERE id = %s
+                    """, (nombre, nuevoNombreFoto, descripcion, precio, id))
+        #ejecutamos esa sentencia SQL
+        db.connection.commit()
+        #mostramos un mensaje por pantalla
+        flash('Evento Actualizado con Exito')
+        #renderizamos la pagina requerida
+        return redirect(url_for('administrarEvents'))   
     
     
     

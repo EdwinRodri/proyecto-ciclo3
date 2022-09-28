@@ -18,15 +18,15 @@
     <div class="contenedor">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#"><i class="fa-solid fa-bowl-food"></i> Food&Events <i class="fa-solid fa-champagne-glasses"></i></a>
+          <a class="navbar-brand" href="/crudAdmin"><i class="fa-solid fa-bowl-food"></i> Food&Events <i class="fa-solid fa-champagne-glasses"></i></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
               {% block link %}
-              <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-gear"></i> Comida</a>
-              <a class="nav-link active" aria-current="page" href="#"><i class="fa-solid fa-gear"></i> Eventos</a>
+              <a class="nav-link active" aria-current="page" href="#Foods"><i class="fa-solid fa-gear"></i> Comida</a>
+              <a class="nav-link active" aria-current="page" href="#Events"><i class="fa-solid fa-gear"></i> Eventos</a>
               {% endblock%}
               <a class="nav-link" href="/login"><i class="fa-sharp fa-solid fa-right-to-bracket"></i> Salir</a>
               <!-- <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
@@ -39,6 +39,8 @@
           {% block body %}
           {% endblock %}
         </div>
+        {% block script %}
+        {% endblock %}
         <script src="https://kit.fontawesome.com/2264b308ab.js" crossorigin="anonymous"></script>
     </div>
 

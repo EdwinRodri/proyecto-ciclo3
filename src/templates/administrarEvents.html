@@ -27,15 +27,15 @@ mensage %}
 {% endfor %} {% endif %} {% endwith %}
 
 <div class="sectionTabla" id="Productos">
-  <h1>Productos Disponibles</h1>
+  <h1>Eventos Disponibles</h1>
 
   <table class="table table-striped table-bordered table-sm">
     <thead>
       <tr>
-        <td>Nombre</td>
-        <td>Foto</td>
+        <td>Nombre Evento</td>
+        <td>Imagen</td>
         <td>Descripcion</td>
-        <td>Precio</td>
+        <td>Hora</td>
         <td>Operaciones</td>
       </tr>
     </thead>
@@ -47,8 +47,8 @@ mensage %}
         <td>{{i.3}}</td>
         <td>{{i.4}}</td>
         <td>
-            <a href="/edit/{{i.0}}" class="btn btn-primary">Editar</a>
-            <a href="/delete/{{i.0}}" class= "btn btn-danger" id="botonDelete">Eliminar</a>
+            <a href="/editEvents/{{i.0}}" class="btn btn-primary">Editar</a>
+            <a href="/deleteEvents/{{i.0}}" class= "btn btn-danger" id="botonDelete">Eliminar</a>
         </td>
       </tr>
       {% endfor %}
@@ -56,41 +56,40 @@ mensage %}
   </table>
   
 </div>
-
 <div class="card formCrear" id="Crear">
-  <form action="/addFood" method="post" enctype="multipart/form-data" class="input flex-nowrap">
-    <h3>Tabla de Registro </h3>
-    <label for="">Nombre</label>
+  <form action="/addEvents" method="post" enctype="multipart/form-data" class="input flex-nowrap">
+    <h3>Tabla de Eventos </h3>
+    <label for="">Nombre Evento</label>
     <input
       class="form-control"
       type="text"
       name="Nombre"
       id=""
-      placeholder="Nombre Comida"
+      placeholder="Nombre Evento o Artista"
     />
-    <label for="">Foto</label>
+    <label for="">Imagen</label>
     <input
       class="form-control"
       type="file"
       name="File"
       id=""
     />
-    <label for="">Descripcion</label>
+    <label for="">Lugar Evento</label>
     <textarea
       class="form-control"
       name="Descripcion"
       id=""
       cols="30"
       rows="0"
-      placeholder="papas, salsa, entre otros"
+      placeholder="Descripcion"
     ></textarea>
-    <label for="">Precio</label>
+    <label for="">Hora</label>
     <input
       class="form-control"
       type="text"
       name="Precio"
       id=""
-      placeholder="10"
+      placeholder="10:00"
     />
     <button class="btn btn-success botonCrear" type="submit">Agregar</button>
   </form>
