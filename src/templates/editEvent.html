@@ -11,6 +11,14 @@
 
 <div class="card formCrear">
   <form action="/updateEvents/{{datos.0}}" enctype="multipart/form-data" method="post" class="input flex-nowrap">
+    <input
+      type="text"
+      name="Id"
+      id=""
+      placeholder="Nombre Comida"
+      value="{{datos.0}}"
+      hidden="true"
+    />
     <h3>Editar Evento</h3>
     <label for="">Nombre Evento</label>
     <input
@@ -27,9 +35,10 @@
       type="file"
       name="File"
       id=""
-      value="{{datos.2}}"
       class="form-control"
     />
+    <img class="img-thumbnail" width="80" src="../uploads/{{datos.2}}" alt=""></td>
+    <br>
     <label for="">Lugar Evento</label>
     <input
       type="text"

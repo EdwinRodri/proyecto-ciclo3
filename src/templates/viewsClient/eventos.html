@@ -1,0 +1,58 @@
+<!-- Imprtamos todo el ducumento de layout -->
+{% extends './crudAmin.html' %}
+
+<!-- creamos la ruta par los estilos css -->
+{% block customCSS %}
+<link rel="stylesheet" href="../static/css/inicio.css" />
+{% endblock %}
+{% block enlaceLogo %}
+<a class="navbar-brand" href="/productos"><i class="fa-solid fa-bowl-food"></i> Food&Events <i class="fa-solid fa-champagne-glasses"></i></a>
+{% endblock %}
+{% block link %}
+<a class="nav-link active" aria-current="page" href="#Crear"><i class="fa-solid fa-book-open-reader"></i> Reservas</a>
+{% endblock %}
+
+
+
+{% block body %}
+
+<h1>Estos son los Eventos Disponibles</h1>
+
+{% with mensage = get_flashed_messages() %} {% if mensage %} {%for mensa in
+mensage %}
+
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{mensa}}
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+{% endfor %} {% endif %} {% endwith %}
+
+{% for i in datos %}
+
+<div class="container-productos">
+    <p>{{i.1}}</p>
+    <img src="uploads\{{i.2}}" width="80" alt="">
+    <p>{{i.4}}</p>
+    <a href="">Comprar</a>
+
+</div>
+
+{% endfor %}
+
+
+
+
+
+{% endblock %}
+
+
+
+
+{% block script %}
+<script src="../static/js/administrarFood.js"></script>
+{% endblock %}

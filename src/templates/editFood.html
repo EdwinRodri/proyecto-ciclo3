@@ -11,6 +11,15 @@
 
 <div class="card formCrear">
   <form action="/update/{{datos.0}}" method="post" enctype="multipart/form-data" class="input flex-nowrap">
+    <input
+      type="text"
+      name="Id"
+      id=""
+      placeholder="Nombre Comida"
+      value="{{datos.0}}"
+      hidden="true"
+    />
+    
     <h3>Editar Producto</h3>
     <label for="">Nombre</label>
     <input

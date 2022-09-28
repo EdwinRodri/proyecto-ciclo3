@@ -1,8 +1,9 @@
 #importacion de todo lo necesario
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, send_from_directory
 from flask_mysqldb import MySQL
 from datetime import datetime
 import random
+import os
 
 #creamos al app
 app= Flask(__name__)
@@ -19,6 +20,16 @@ db = MySQL(app)
 
 app.secret_key = "super secret key"
 
+
+CARPETA = os.path.join('uploads')
+app.config['CARPETA']=CARPETA
+
+#ruta para las fotos que se puedan mostrar en los CRUDS
+@app.route('/uploads/<nuevoNombreFoto>')
+def uploads(nuevoNombreFoto):
+    #send_from_directory es el modulo de flask que se importo paera que se pueda mostrar las imagenes
+    return send_from_directory(app.config['CARPETA'], nuevoNombreFoto)
+    
 
 #rutas Principales
 
@@ -37,6 +48,7 @@ def logout():
     session.pop('username', None)
     return render_template('login.html')
 
+#Rutas del Administrador user admin01
 @app.route('/crudAdmin')
 def crudAmin():
     return render_template('crudAdminInformacion.html')
@@ -50,9 +62,6 @@ def formulario_registro():
 def productos():
     return render_template('productos-inicio.html')
 
-@app.route('/food')
-def food():
-    return render_template('crudFood.html')
 
 @app.route('/administrarFood')
 def administrarfood():
@@ -76,9 +85,29 @@ def administrarEvents():
 
 
 
+#rutas del cliente user diferente a admin01
+@app.route('/comida')
+def comida():
+    cursor = db.connection.cursor()
+    cursor.execute('SELECT * FROM food')
+    data = cursor.fetchall()#esta funcion guarda los datos selecionados de la tabla de la BD
+    
+    #pasamos esos datos como parametros para que el html de esta pagina los renderice por medio de un Bucle for
+    return render_template('viewsClient/comida.html', datos= data)
+
+@app.route('/eventosDisponibles')
+def eventosDisponibles():
+    cursor = db.connection.cursor()
+    cursor.execute('SELECT * FROM eventos')
+    data = cursor.fetchall()#esta funcion guarda los datos selecionados de la tabla de la BD
+    
+    #pasamos esos datos como parametros para que el html de esta pagina los renderice por medio de un Bucle for
+    return render_template('viewsClient/eventos.html', datos=data)
+
 
 #rutas para la pagina Login y Registro
 
+#Ruta Registro
 #metodos [POST, GET, UPDATE, DELETE] Base de Datos
 @app.route('/add', methods=['POST'])
 def add():
@@ -104,7 +133,7 @@ def add():
         return redirect(url_for('formulario_registro')) #dentro de los parentecis url_for, va la funcion
                                                            #de la ruta que queremos redirecionarno
         
-
+#Login
 #metodo validar datos de iniciar sesion
 @app.route('/inicio', methods=['GET', 'POST'])                                                     
 def iniciar_sesion():
@@ -182,13 +211,18 @@ def addFood():
 @app.route('/delete/<string:id>')
 def deleteFood(id):
     cursor = db.connection.cursor()
+    
+    cursor.execute('SELECT Foto FROM food WHERE id=%s', [id])
+    fila = cursor.fetchall() 
+    os.remove(os.path.join(app.config['CARPETA'],fila[0][0]))
+    
     cursor.execute('Delete FROM food WHERE id = %s',[id])
     db.connection.commit()
     flash('El producto ha sido Removido con Exito')
     return redirect(url_for('administrarfood'))
 
 #Ruta Editar un Food
-#esta ruta me recolecta los datos que se van actualizar y me los pega en los campos
+#esta ruta me recolecta los datos que se van actualizar y me los pega en los campos de la nueva ruta
 @app.route('/edit/<string:id>')
 def editFood(id):
     #creamos el cursor para ejecutar loa sentencia SQL
@@ -205,11 +239,14 @@ def editFood(id):
 def updateFood(id):
     if request.method == 'POST':
         #recolectamos los datos del formulario
-        nombre = request.form['Nombre']#accedemos a los datos del formulario por la funcion request.form
+        nombre = request.form['Nombre']
         foto = request.files['File']
         descripcion = request.form['Descripcion']
         precio = request.form['Precio']
-        # print(nombre)
+        id=request.form['Id']
+        
+        #creamos el cursor 
+        cursor = db.connection.cursor()
         
         now = datetime.now()
         tiempo = now.strftime("%Y%H%M%S")
@@ -217,18 +254,22 @@ def updateFood(id):
         if foto.filename != '':
             nuevoNombreFoto = tiempo+foto.filename
             foto.save("uploads/"+nuevoNombreFoto)
+            
+            cursor.execute('SELECT Foto FROM food WHERE id=%s', [id])
+            fila = cursor.fetchall()
+            
+            os.remove(os.path.join(app.config['CARPETA'],fila[0][0]))
+            cursor.execute('UPDATE food SET Foto=%s WHERE id=%s', (nuevoNombreFoto,id))
+            db.connection.commit()
         
-        #creamos el cursor 
-        cursor = db.connection.cursor()
         #creamos la sentencia SQL con el cursor
         cursor.execute("""
                     UPDATE food 
                     SET Nombre = %s,
-                        Foto = %s,
                         Descripcion = %s,
                         Precio = %s
                     WHERE id = %s
-                    """, (nombre, nuevoNombreFoto, descripcion, precio, id))
+                    """, (nombre, descripcion, precio, id))
         #ejecutamos esa sentencia SQL
         db.connection.commit()
         #mostramos un mensaje por pantalla
@@ -272,6 +313,11 @@ def addEvents():
 @app.route('/deleteEvents/<string:id>')
 def deleteEvents(id):
     cursor = db.connection.cursor()
+    
+    cursor.execute('SELECT Imagen FROM eventos WHERE id=%s', [id])
+    fila = cursor.fetchall()
+    os.remove(os.path.join(app.config['CARPETA'],fila[0][0]))
+    
     cursor.execute('Delete FROM eventos WHERE id = %s',[id])
     db.connection.commit()
     flash('El Evento ha sido Removido con Exito')
@@ -301,24 +347,33 @@ def updateEvents(id):
         precio = request.form['Precio']
         # print(nombre)
         
+        
+        
+        #creamos el cursor 
+        cursor = db.connection.cursor()
+        
         now = datetime.now()
         tiempo = now.strftime("%Y%H%M%S")
         
         if foto.filename != '':
             nuevoNombreFoto = tiempo+foto.filename
             foto.save("uploads/"+nuevoNombreFoto)
+            
+            cursor.execute('SELECT Imagen FROM eventos WHERE id=%s', [id])
+            fila = cursor.fetchall()
+            
+            os.remove(os.path.join(app.config['CARPETA'],fila[0][0]))
+            cursor.execute('UPDATE eventos SET Imagen=%s WHERE id=%s', (nuevoNombreFoto,id))
+            db.connection.commit()
         
-        #creamos el cursor 
-        cursor = db.connection.cursor()
         #creamos la sentencia SQL con el cursor
         cursor.execute("""
                     UPDATE eventos 
                     SET NombreEvento = %s,
-                            Imagen = %s,
                             Lugar = %s,
                             Hora = %s
                         WHERE id = %s
-                    """, (nombre, nuevoNombreFoto, descripcion, precio, id))
+                    """, (nombre, descripcion, precio, id))
         #ejecutamos esa sentencia SQL
         db.connection.commit()
         #mostramos un mensaje por pantalla
