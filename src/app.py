@@ -285,7 +285,7 @@ def updateFood(id):
 @app.route('/addEvents', methods=['POST'])
 def addEvents():
     if request.method == 'POST': #validamos que sea el metodo POST
-        nombre = request.form['Nombre']#accedemos a los datos del formulario por la funcion request.form
+        nombre = request.form['Nombre']
         foto = request.files['File']
         descripcion = request.form['Descripcion']
         precio = request.form['Precio']
@@ -296,9 +296,6 @@ def addEvents():
         if foto.filename != '':
             nuevoNombreFoto = tiempo+foto.filename
             foto.save("uploads/"+nuevoNombreFoto)
-        # print(nombre)
-        # print(descripcion)
-        # print(precio)
          
         #generamos el curso paso fundamental, "db" es como guardamos la conexion de la base de datos arriba
         cursor = db.connection.cursor()
@@ -382,8 +379,36 @@ def updateEvents(id):
         return redirect(url_for('administrarEvents'))   
     
     
-    
-    
+#ruta pedir comida con el user cliente
+
+#ruta añadir al carrito
+@app.route('/addCarrito', methods=['POST'])
+def addCarrito():
+    if request.method == 'POST': #validamos que sea el metodo POST
+        nombre = request.form['NombreP']
+        descripcion = request.form['DescripcionP']
+        precio = request.form['PrecioP']
+        cantidad = request.form['CantidadP']
+       
+        cursor = db.connection.cursor()
+        #creamos la sentencia SQL
+        cursor.execute('INSERT INTO carritocomida (NombreP, DescripcionP, PrecioP, CantidadP) VALUES (%s,%s,%s,%s)', (nombre, descripcion, precio, cantidad))
+        #ejecutamos la sentencia con la conexion a la base de datos
+        db.connection.commit()
+        # flash('la comida se agrego con exido al carrito')
+        return 'Recivido en el carrito' #dentro de los parentecis url_for, va la funcion
+        # return redirect(url_for('comida')) #dentro de los parentecis url_for, va la funcion
+
+
+#ruta Reservaciones
+@app.route('/reservacion/<string:id>')
+def reservacion(id):
+    flash('La Reservacion Fue Exitosa')
+    return redirect(url_for('eventosDisponibles'))
+
+
+
+
 
 #ejecutamos el servidor para que se actualice automaticamente
 if __name__ == '__main__':

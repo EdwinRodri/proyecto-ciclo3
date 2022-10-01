@@ -1,0 +1,110 @@
+<!-- Imprtamos todo el ducumento de layout -->
+{% extends './crudAmin.html' %}
+
+<!-- creamos la ruta par los estilos css -->
+{% block customCSS %}
+<link rel="stylesheet" href="../static/css/comida.css" />
+{% endblock %}
+{% block enlaceLogo %}
+<a class="navbar-brand" href="/productos"><i class="fa-solid fa-bowl-food"></i> Food&Events <i class="fa-solid fa-champagne-glasses"></i></a>
+{% endblock %}
+{% block link %}
+<a class="nav-link active" aria-current="page" href="#Crear"><i class="fa-solid fa-cart-shopping"></i> Carrito</a>
+{% endblock %}
+
+
+
+{% block body %}
+<div class="titulo-productos">
+  <h1 >Esta es la Comida Disponible</h1>
+</div>
+
+<!-- Mensaje de Alerta -->
+{% with mensage = get_flashed_messages() %} {% if mensage %} {%for mensa in
+mensage %}
+
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{mensa}}
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+{% endfor %} {% endif %} {% endwith %}
+
+<!-- Aqui empieza la tabla -->
+
+<div class="contenedor_padre">
+  <!-- <div class="sectionTabla" id="Productos">
+  
+    <table class="table tablaStilo">
+      <thead>
+        <tr>
+          <td><strong>Nombre</strong></td>
+          <td><strong>Foto</strong></td>
+          <td><strong>Descripcion</strong></td>
+          <td><strong>Precio</strong></td>
+          <td><strong>Cantidad</strong></td>
+          <td><strong>Operacion</strong></td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in datos %}
+        <tr>
+          <td><strong>{{i.1}}</strong></td>
+          <td>
+            <img class="img-thumbnail" width="150" src="../../uploads/{{i.2}}" alt=""></td>
+           </td>
+          <td>{{i.3}}</td>
+          <td><strong>{{i.4}}</strong></td>
+          <td><input type="number" class="ingresarCantidad" style="width: 50px;"></td>
+          <td>
+              <a href="/edit/{{i.0}}" class="btn btn-primary">Agregar</a>
+             
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    
+  </div> -->
+  <div class="card formCrear">
+    <form action="/carritoComida" method="post" enctype="multipart/form-data" class="input flex-nowrap">
+      <input
+        type="text"
+        name="Id"
+        id=""
+        placeholder="Nombre Comida"
+        value="{{datos.0}}"
+        hidden="true"
+      />
+      
+      <h3>Editar Producto</h3>
+      <label for="">Nombre:</label>
+      <p><strong>{{datos.1}}</strong></p>
+      <label for="">Imagen:</label>
+      <br>
+      <img class="img-thumbnail" width="80" src="../uploads/{{datos.2}}" alt=""></td>
+      <br>
+      <label for="">Descripcion:</label>
+      <p><strong>{{datos.3}}</strong></p>
+      <label for="">Precio:</label>
+      <p><strong>{{datos.4}}</strong></p>
+      <button type="submit" class="btn btn-warning">Comprar</button>
+      <a href="/comida" class="btn btn-dark">Cancelar</a>
+    </form>
+  </div>
+
+</div>
+
+
+{% endblock %}
+
+
+
+
+{% block script %}
+<script src="../../static/js/comida.js"></script>
+{% endblock %}

@@ -3,49 +3,55 @@
 
 <!-- creamos la ruta par los estilos css -->
 {% block customCSS %}
-<link rel="stylesheet" href="../static/css/inicio.css" />
+<link rel="stylesheet" href="../static/css/comida.css" />
 {% endblock %}
 {% block enlaceLogo %}
-<a class="navbar-brand" href="/productos"><i class="fa-solid fa-bowl-food"></i> Food&Events <i class="fa-solid fa-champagne-glasses"></i></a>
+<a class="navbar-brand" href="/productos"><i class="fa-solid fa-bowl-food"></i> Food&Events <i
+    class="fa-solid fa-champagne-glasses"></i></a>
 {% endblock %}
 {% block link %}
-<a class="nav-link active" aria-current="page" href="#Crear"><i class="fa-solid fa-book-open-reader"></i> Reservas</a>
+<a class="nav-link active" aria-current="page" href="#Crear"><i class="fa-solid fa-cart-shopping"></i> Carrito</a>
 {% endblock %}
 
 
 
 {% block body %}
-
-<h1>Estos son los Eventos Disponibles</h1>
+<div class="titulo-productos">
+  <h1>Eventos Disponibles</h1>
+</div>
 
 {% with mensage = get_flashed_messages() %} {% if mensage %} {%for mensa in
 mensage %}
 
 <div class="alert alert-success alert-dismissible fade show" role="alert">
   {{mensa}}
-  <button
-    type="button"
-    class="btn-close"
-    data-bs-dismiss="alert"
-    aria-label="Close"
-  ></button>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 {% endfor %} {% endif %} {% endwith %}
+<div class="contenedor_padre">
 
-{% for i in datos %}
-
-<div class="container-productos">
-    <p>{{i.1}}</p>
-    <img src="uploads\{{i.2}}" width="80" alt="">
-    <p>{{i.4}}</p>
-    <a href="">Comprar</a>
+  <div class="sectionTabla" id="Productos">
+          Nombre Evento
+          Imagen
+          Descripcion
+          Hora
+          Operaciones
+        
+      <div id="filaBtn" >
+        {% for i in datos %}
+          <p>{{i.1}}</p>
+          <img class="img-thumbnail" width="200" src="../uploads/{{i.2}}" alt="">
+          <p>{{i.3}}</p>
+          <input type="text" id="valorHora" class="horaClase" value="{{i.4}}">
+          <!-- <p id="valorHora" class="horaClase">{{i.4}}</p> -->
+          <a href="/reservacion/{{i.0}}" class="btn btn-info" id="btnsReservar" >Reservar</a>
+          <br>
+          <br>
+        {% endfor %}
+      </div>
+  </div>
 
 </div>
-
-{% endfor %}
-
-
-
 
 
 {% endblock %}
@@ -54,5 +60,5 @@ mensage %}
 
 
 {% block script %}
-<script src="../static/js/administrarFood.js"></script>
+<script src="../../static/js/eventos.js"></script>
 {% endblock %}

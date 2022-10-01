@@ -1,0 +1,42 @@
+.contenedor_padre{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    margin-left: 60px;
+    width: 100%;
+    gap: 20px;
+} 
+.container-productos{
+    height: 400px;
+    width: 200px;
+    border: 1px solid black;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    align-items: center;
+    grid-column: 1fr 1fr;
+}
+.titulo-productos{
+    display: block;
+}
+.descripcion{
+    width: 90%;
+}
+
+.ingresarCantidad{
+    border-radius: 5px;
+} 
+.tablaStilo{
+    gap: 40px;
+}
+
+.claseDeInputs{
+    background: none;
+    border: none;
+    text-align: center;
+}
+

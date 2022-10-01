@@ -18,7 +18,6 @@
     min-width: 45%;
 }
 .img-contenedor{
-    /* opacity:60%; */
     width: 90%;
     height:500px;
     box-shadow: 2px solid black;
@@ -57,6 +56,7 @@
     }
 
 .sectionTabla{
+    margin-left: 40px;
     margin-top: 30px;    
 }
 .formCrear{
@@ -75,6 +75,7 @@
         color: white;
         background-color: rgb(57, 144, 213);
     }
+
 
 @media(min-width:868px){
     .img-contenedor{

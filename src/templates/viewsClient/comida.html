@@ -3,10 +3,11 @@
 
 <!-- creamos la ruta par los estilos css -->
 {% block customCSS %}
-<link rel="stylesheet" href="../static/css/inicio.css" />
+<link rel="stylesheet" href="../static/css/comida.css" />
 {% endblock %}
 {% block enlaceLogo %}
-<a class="navbar-brand" href="/productos"><i class="fa-solid fa-bowl-food"></i> Food&Events <i class="fa-solid fa-champagne-glasses"></i></a>
+<a class="navbar-brand" href="/productos"><i class="fa-solid fa-bowl-food"></i> Food&Events <i
+    class="fa-solid fa-champagne-glasses"></i></a>
 {% endblock %}
 {% block link %}
 <a class="nav-link active" aria-current="page" href="#Crear"><i class="fa-solid fa-cart-shopping"></i> Carrito</a>
@@ -15,35 +16,89 @@
 
 
 {% block body %}
+<div class="titulo-productos">
+  <h1>Esta es la Comida Disponible</h1>
+</div>
 
-<h1>Estos son los Productos Disponibles</h1>
-
+<!-- Mensaje de Alerta -->
 {% with mensage = get_flashed_messages() %} {% if mensage %} {%for mensa in
 mensage %}
 
 <div class="alert alert-success alert-dismissible fade show" role="alert">
   {{mensa}}
-  <button
-    type="button"
-    class="btn-close"
-    data-bs-dismiss="alert"
-    aria-label="Close"
-  ></button>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 {% endfor %} {% endif %} {% endwith %}
 
-{% for i in datos %}
+<!-- Aqui empieza la tabla -->
 
-<div class="container-productos">
-    <p>{{i.1}}</p>
+<div class="contenedor_padre">
+  <div class="sectionTabla" id="Productos">
+    <form action="/addCarrito" method="post" enctype="multipart/form-data">
+      <table class="table tablaStilo">
+        <thead>
+          <tr>
+            <td><strong>Nombre</strong></td>
+            <td><strong>Foto</strong></td>
+            <td><strong>Descripcion</strong></td>
+            <td><strong>Precio</strong></td>
+            <td><strong>Cantidad</strong></td>
+            <td><strong>Operacion</strong></td>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for i in datos %}
+          <tr>
+            <td>
+              <p>{{i.1}}</p>
+              <input value="{{i.1}}" hidden="true" id="claseDeInputs" class="claseDeInputs" name="NombreP">
+            </td>
+            <td>
+              <img class="img-thumbnail" width="150" src="../uploads/{{i.2}}" alt="">
+              <input hidden="true" class="form-control" type="file" name="FileP" id="" value="{{i.2}}"
+                class="form-control" />
+            </td>
+            </td>
+            <td>
+              <p>{{i.3}}</p>
+              <input value="{{i.3}}" hidden="true" class="claseDeInputs" name="DescripcionP">
+            </td>
+            <td>
+              <p>{{i.4}}</p>
+              <input value="{{i.4}}" hidden="true" class="claseDeInputs" name="PrecioP">
+            </td>
+            <td><input type="number" class="ingresarCantidad" style="width: 50px;" name="CantidadP"></td>
+            <td>
+              <button type="submit" class="btn btn-primary">Agregar</button> 
+              <!-- <a href="" class="btn btn-primary" type="submit">Agregar</a>  -->
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </form>
+  </div>
+  <!-- {% for i in datos %}
+
+  <div class="container-productos" >
+    <form action=""></form>
+    <br>
+    <strong><p>{{i.1}}</p></strong>
     <img src="uploads\{{i.2}}" width="80" alt="">
-    <p>{{i.4}}</p>
-    <a href="">Comprar</a>
+    <p class="descripcion">{{i.3}}</p>
+    <strong><span id="valorCantidad">{{i.4}}</span></strong>
+    <div class="botones-cantidades" id="btnsCantidades">
+      <span>Cantidad:</span>
+      <input type="number" name="" id="" class="ingresarCantidad" style="width: 50px">
+    </div>
+    <button type="submit" class="btn btn-info" id="btnAgregar">Agregar</button>
+    <br>
+  </div>
+  
+{% endfor %} -->
 
 </div>
-
-{% endfor %}
-
 
 
 {% endblock %}
@@ -52,5 +107,5 @@ mensage %}
 
 
 {% block script %}
-<script src="../static/js/administrarFood.js"></script>
+<script src="../../static/js/comida.js"></script>
 {% endblock %}

@@ -5,6 +5,11 @@
     scroll-behavior: smooth;
     /* background-color: bisque; */
 }
+.contenedor{
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+}
 html{
     scroll-behavior: smooth;
 }
@@ -32,6 +37,12 @@ html{
     margin: 0;
 }
 
-.container{
-    margin-top: 50px;
+.containerr{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    align-items: center;
+    text-align: center;
+    margin-top:  40px;
 }
+
