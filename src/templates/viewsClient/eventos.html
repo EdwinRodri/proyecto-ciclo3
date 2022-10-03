@@ -4,6 +4,7 @@
 <!-- creamos la ruta par los estilos css -->
 {% block customCSS %}
 <link rel="stylesheet" href="../static/css/comida.css" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 {% endblock %}
 {% block enlaceLogo %}
 <a class="navbar-brand" href="/productos"><i class="fa-solid fa-bowl-food"></i> Food&Events <i
@@ -11,12 +12,14 @@
 {% endblock %}
 {% block link %}
 <a class="nav-link active" aria-current="page" href="#Crear"><i class="fa-solid fa-cart-shopping"></i> Carrito</a>
+
 {% endblock %}
 
 
 
 {% block body %}
 <div class="titulo-productos">
+  
   <h1>Eventos Disponibles</h1>
 </div>
 
@@ -44,7 +47,9 @@ mensage %}
           <p>{{i.3}}</p>
           <input type="text" id="valorHora" class="horaClase" value="{{i.4}}">
           <!-- <p id="valorHora" class="horaClase">{{i.4}}</p> -->
-          <a href="/reservacion/{{i.0}}" class="btn btn-info" id="btnsReservar" >Reservar</a>
+          <div id="arraybtns">
+            <a href=""class="btn btn-info" id="btnsReservar" >Reservar</a>
+          </div>
           <br>
           <br>
         {% endfor %}

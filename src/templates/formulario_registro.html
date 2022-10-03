@@ -4,6 +4,7 @@
 <!-- creamos la ruta par los estilos css -->
 {% block customCSS %}
 <link rel="stylesheet" href="../static/css/formulario_registro.css"> 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 {% endblock %}
 
 <!-- Creamos el body sel documento -->
@@ -13,10 +14,10 @@
 
 <form class="contenedor_form" action="/add" method="POST" id="formulario">
     <div class="container_formulario">
-        <div class="img_cont">
+        <div class="img_cont ">
             <img src="../static/img/formulario_registro.png" alt="" class="img-conte">
         </div>
-        <div class="form_cont" >
+        <div class="form_cont card" >
             {% with mensage = get_flashed_messages() %}
             {% if mensage %}
             {%for mensa in mensage %}
@@ -30,22 +31,22 @@
             <h3>Crear Cuenta</h3>
 
             <label for="name">Nombre</label>
-            <input type="text" placeholder="Nombre" id="name" name="nombre" required>
+            <input type="text" placeholder="Nombre" id="name" name="nombre" class="form-control" required>
 
             <label for="lastname">Apellido</label>
-            <input type="text" placeholder="Apellido" id="lastname" name="apellido" required>
+            <input type="text" placeholder="Apellido" id="lastname" name="apellido" class="form-control" required>
 
             <label for="email">Email</label>
-            <input type="email" placeholder="email@gmail.com" id="email" name="correo" required>
+            <input type="email" placeholder="email@gmail.com" id="email" name="correo" class="form-control" required>
 
             <label for="celular">Celular</label>
-            <input type="number" placeholder="31656236569" id="celular" name="celular" required>
+            <input type="number" placeholder="31656236569" id="celular" name="celular" class="form-control" required>
 
             <!-- <label for="username">Username</label>
             <input type="text" placeholder="User" id="username" name="usuario" required> -->
 
             <label for="password" >Password</label>
-            <input type="password" placeholder="Password" id="password" name="contraseña" required>
+            <input type="password" placeholder="Password" id="password" name="contraseña" class="form-control" required>
 
             <button class="btn btn-primary">Crear cuenta</button> 
             <button class="btn btn-info"><a href="/login" class="btn btn-info">Iniciar Sesion</a>

@@ -2,28 +2,66 @@
 {% block customCSS %}
 <link rel="stylesheet" href="../static/css/productos-inicio.css">
 {% endblock %}
+{% block enlaces %}
+<a class="nav-link active" aria-current="page" href="#food"><i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+    Comida</a>
+<a class="nav-link active" href="#events"><i class="fa-sharp fa-solid fa-magnifying-glass"></i> Eventos</a>
+<a class="nav-link active" href="/cuentaCliente/{{cuenta.0}}"><i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+    Cuenta</a>
+{% endblock %}
+
 {% block bodyProductos %}
 <div class="contenedor-products">
+    {% with mensage = get_flashed_messages() %}
+    {% if mensage %}
+    {%for mensa in mensage %}
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        {{mensa}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <!-- Esta linea de codigo es muy importante ya que de esta menra pude recuprera el usuario para poder mostrar los datos de la cuenta en la otra pagina "cuentaClienta.html" -->
+
+    <!-- <input type="text"  value="{{cuenta.0}}">
+    <br>
+    <a href="/cuentaCliente/{{cuenta.0}}">Editar Cuenta</a> -->
+
     <h1 id="events">Eventos</h1>
-    <div class="contenedor_events" >
+    <div class="contenedor_events">
         <div class="imag-events">
             <img src="../static/img/events-programacion.png" alt="" class="eventos-productos">
         </div>
         <div class="bonton-parrafo">
-            <p class="p-events">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora, hic voluptatem excepturi nulla consectetur beatae. Voluptate dolorem, earum cum magnam ab tempore expedita sapiente. Mollitia sint sed debitis distinctio eaque totam voluptas nobis beatae ratione nam inventore cupiditate exercitationem dolores quae veniam earum velit provident, quos omnis, sunt unde officiis corporis. Placeat in eos et, optio repellendus rerum veritatis nihil omnis rem quis quas est! Alias accusamus recusandae facere veniam, mollitia adipisci voluptas nemo dolore id laborum voluptate a corporis non? Sint asperiores rem voluptates fugit reprehenderit officia molestiae, cum id enim, dolor impedit ab ipsam accusamus quibusdam unde hic?</p>
+            <p class="p-events">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempora, hic voluptatem
+                excepturi nulla consectetur beatae. Voluptate dolorem, earum cum magnam ab tempore expedita sapiente.
+                Mollitia sint sed debitis distinctio eaque totam voluptas nobis beatae ratione nam inventore cupiditate
+                exercitationem dolores quae veniam earum velit provident, quos omnis, sunt unde officiis corporis.
+                Placeat in eos et, optio repellendus rerum veritatis nihil omnis rem quis quas est! Alias accusamus
+                recusandae facere veniam, mollitia adipisci voluptas nemo dolore id laborum voluptate a corporis non?
+                Sint asperiores rem voluptates fugit reprehenderit officia molestiae, cum id enim, dolor impedit ab
+                ipsam accusamus quibusdam unde hic?</p>
             <a href="/eventosDisponibles" class="btn btn-primary">Reservar</a>
-            
+
         </div>
     </div>
-    <h1 class="title-food" >Comida</h1>
+    <h1 class="title-food">Comida</h1>
     <div class="contenedor_food" id="food">
         <div class="bonton-parrafo">
-            <p class="p-food">Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit facilis ipsum ratione doloremque culpa autem, voluptatibus dolore dolor porro incidunt possimus ut sed repellendus illo pariatur eos a necessitatibus corporis minima consequatur excepturi totam est. Odio veniam cupiditate nulla inventore earum explicabo incidunt fugiat deleniti distinctio tenetur nobis officia sed, optio nihil nesciunt consequatur. Sit doloribus consectetur eaque exercitationem quasi placeat dolorum ipsum iste! Ad recusandae similique autem, rerum nulla totam. Et accusamus harum voluptates provident placeat quibusdam nisi quidem incidunt ipsa quos expedita nesciunt quis itaque debitis ad ullam perferendis voluptate qui natus cumque, non adipisci animi quo est.</p>
+            <p class="p-food">Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit facilis ipsum ratione
+                doloremque culpa autem, voluptatibus dolore dolor porro incidunt possimus ut sed repellendus illo
+                pariatur eos a necessitatibus corporis minima consequatur excepturi totam est. Odio veniam cupiditate
+                nulla inventore earum explicabo incidunt fugiat deleniti distinctio tenetur nobis officia sed, optio
+                nihil nesciunt consequatur. Sit doloribus consectetur eaque exercitationem quasi placeat dolorum ipsum
+                iste! Ad recusandae similique autem, rerum nulla totam. Et accusamus harum voluptates provident placeat
+                quibusdam nisi quidem incidunt ipsa quos expedita nesciunt quis itaque debitis ad ullam perferendis
+                voluptate qui natus cumque, non adipisci animi quo est.</p>
             <a href="/comida" class="btn btn-primary">Ordenar</a>
-            
+
         </div>
         <div class="imag-food">
-            <img src="../static/img/food-programacion.png" alt=""class="food-productos">
+            <img src="../static/img/food-programacion.png" alt="" class="food-productos">
         </div>
     </div>
 </div>

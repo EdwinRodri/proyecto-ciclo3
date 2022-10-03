@@ -25,9 +25,10 @@
       type="text"
       name="Nombre"
       id=""
-      placeholder="Nombre Evento"
-      value="{{datos.1}}"
+      placeholder="{{datos.1}}"
+      value=""
       class="form-control"
+      required
     />
     <label for="">Imagen</label>
     <input
@@ -36,6 +37,7 @@
       name="File"
       id=""
       class="form-control"
+      required
     />
     <img class="img-thumbnail" width="80" src="../uploads/{{datos.2}}" alt=""></td>
     <br>
@@ -44,18 +46,20 @@
       type="text"
       name="Descripcion"
       id=""
-      placeholder="Descripcion"
-      value="{{datos.3}}"
+      placeholder="{{datos.3}}"
+      value=""
       class="form-control"
+      required
     />
     <label for="">Hora</label>
     <input
       type="text"
       name="Precio"
       id=""
-      placeholder="10:00"
-      value="{{datos.4}}"
+      placeholder="{{datos.4}}"
+      value=""
       class="form-control"
+      required
     />
     <button type="submit" class="btn btn-warning">Editar</button>
     <a href="/administrarEvents" class="btn btn-dark">Cancelar</a>

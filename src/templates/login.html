@@ -4,6 +4,7 @@
 <!-- creamos la ruta par los estilos css -->
 {% block customCSS %}
 <link rel="stylesheet" href="../static/css/login.css" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 {% endblock %}
 
 <!-- Creamos el body sel documento -->
@@ -15,15 +16,16 @@
     ></i>
   </h1>
   <div class="container_login">
-    <div class="imgLogin-contenedor">
+    <div class="imgLogin-contenedor card">
       <img src="../static/img/login_img.png" alt="" class="login-img" />
     </div>
 
     <form
-      class="contenedor_form"
+      class="contenedor_form card"
       action="/inicio"
       method="POST"
       id="formulario_login"
+      
     >
       {% with mensage = get_flashed_messages() %} {% if mensage %} {%for mensa
       in mensage %}
@@ -39,29 +41,32 @@
       {% endfor %} {% endif %} {% endwith %}
       <h3>Iniciar Sesion</h3>
 
-      <label for="username">Username</label>
+      <label for="username">Usuario</label>
       <input
+        class="form-control"
         type="text"
-        placeholder="User"
+        placeholder="@User"
         name="username"
         id="usuarioLogin"
-        required
+        
       />
 
-      <label for="password">Password</label>
+      <label for="password">Contraseña</label>
       <input
+      class="form-control"
         type="password"
-        placeholder="Password"
+        placeholder="*******"
         name="password"
         id="contraLogin"
-        required
+        
       />
 
-      <button class="btn btn-primary">Log In</button>
+      <button class="btn btn-primary" id="btnIniciar">Iniciar</button>
       <p>
         ¿No tienes cuenta?
         <a class="container-btn" href="/formulario_registro"
-          ><strong>Crear Cuenta</strong>
+          style="text-decoration: none;
+          background: none;"><strong>Crear Cuenta</strong>
         </a>
       </p>
     </form>

@@ -1,0 +1,79 @@
+{% extends './crudAmin.html' %}
+
+<!-- creamos la ruta par los estilos css -->
+{% block customCSS %}
+<link rel="stylesheet" href="../static/css/inicio.css" />
+<link rel="stylesheet" href="../../static/css/administrarClientes.css" />
+{% endblock %}
+{% block link %}
+<a class="nav-link active" aria-current="page" href="/administrarFood"><i class="fa-solid fa-gear"></i> Comida</a>
+<a class="nav-link active" aria-current="page" href="/administrarEvents"><i class="fa-solid fa-gear"></i> Eventos</a>
+{% endblock %}
+<!-- Creamos el body sel documento -->
+{% block body %}
+<h1>Lista de clientes</h1>
+{% with mensage = get_flashed_messages() %} {% if mensage %} {%for mensa in
+mensage %}
+<!-- <p class="p-mensaje">{{mensa}}</p> -->
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{mensa}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %} {% endif %} {% endwith %}
+
+<div class="contendorAdministrarClientes">
+
+    <div class="sectionTabla" id="Productos">
+
+        <table class="table table-striped  table-sm">
+            <thead>
+                <tr>
+                    <td><strong>Nombre</strong> </td>
+                    <td><strong>Apellido</strong> </td>
+                    <td><strong>Celular</strong> </td>
+                    <td><strong>Email</strong> </td>
+                    <td><strong>Usuario</strong> </td>
+                    <td><strong>Contraseña</strong> </td>
+                    <td><strong>Operaciones</strong> </td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in datos %}
+                <tr>
+                    <td>{{i.1}}</td>
+                    <td>{{i.2}}</td>
+                    <td>{{i.3}}</td>
+                    <td>{{i.4}}</td>
+                    <td>{{i.5}}</td>
+                    <td>{{i.6}}</td>
+                    <td>
+                        <a href="/editCliente/{{i.0}}" class="btn btn-primary">Editar</a>
+                        <a href="/deleteCliente/{{i.0}}" class="btn btn-danger" id="botonDelete">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+
+   
+    <!-- <div class="col-md-2  tarjeta">
+        <label for="validationCustomUsername" class="form-label">Usuario</label>
+        <form action="/encontrarCliente" method="post">
+            <div class="input-group has-validation">
+                <span class="input-group-text" id="inputGroupPrepend">@</span>
+                <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" name="username"
+                    required>
+                <div class="invalid-feedback">
+                    Please choose a username.
+                </div>
+            </div>
+            <a href="/encontrarCliente/{{datos.4}}" class="btn btn-info">Buscar</a>
+            <button  class="btn btn-info btnBuscarUser">Buscar</button> 
+        </form>
+    </div> -->
+
+</div>
+{% endblock %}

@@ -1,4 +1,3 @@
-<!-- Imprtamos todo el ducumento de layout -->
 {% extends './crudAmin.html' %}
 
 <!-- creamos la ruta par los estilos css -->
@@ -10,7 +9,7 @@
 {% block body %}
 
 <div class="card formCrear">
-  <form action="/update/{{datos.0}}" method="post" enctype="multipart/form-data" class="input flex-nowrap">
+  <form action="/updateEvents/{{datos.0}}" enctype="multipart/form-data" method="post" class="input flex-nowrap">
     <input
       type="text"
       name="Id"
@@ -19,17 +18,15 @@
       value="{{datos.0}}"
       hidden="true"
     />
-    
-    <h3>Editar Producto</h3>
-    <label for="">Nombre</label>
+    <h3>Editar Evento</h3>
+    <label for="">Nombre Evento</label>
     <input
       type="text"
       name="Nombre"
       id=""
-      placeholder="Nombre Comida"
+      placeholder="Nombre Evento"
       value="{{datos.1}}"
       class="form-control"
-      required
     />
     <label for="">Imagen</label>
     <input
@@ -37,34 +34,30 @@
       type="file"
       name="File"
       id=""
-      value="{{datos.2}}"
       class="form-control"
-      required
     />
     <img class="img-thumbnail" width="80" src="../uploads/{{datos.2}}" alt=""></td>
     <br>
-    <label for="">Descripcion</label>
+    <label for="">Lugar Evento</label>
     <input
       type="text"
       name="Descripcion"
       id=""
-      placeholder="Nombre Comida"
+      placeholder="Descripcion"
       value="{{datos.3}}"
       class="form-control"
-      required
     />
-    <label for="">Precio</label>
+    <label for="">Hora</label>
     <input
       type="text"
       name="Precio"
       id=""
-      placeholder="10"
+      placeholder="10:00"
       value="{{datos.4}}"
       class="form-control"
-      required
     />
     <button type="submit" class="btn btn-warning">Editar</button>
-    <a href="/administrarFood" class="btn btn-dark">Cancelar</a>
+    <a href="/administrarEvents" class="btn btn-dark">Cancelar</a>
   </form>
 </div>
 

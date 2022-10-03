@@ -48,20 +48,19 @@ def logout():
     session.pop('username', None)
     return render_template('login.html')
 
-#Rutas del Administrador user admin01
-@app.route('/crudAdmin')
-def crudAmin():
-    return render_template('crudAdminInformacion.html')
-
 @app.route('/formulario_registro')
 def formulario_registro():
     return render_template('formulario_registro.html')
 
 
-@app.route('/productos')
-def productos():
-    return render_template('productos-inicio.html')
 
+
+
+
+#Rutas del Administrador user admin01
+@app.route('/crudAdmin')
+def crudAmin():
+    return render_template('crudAdminInformacion.html')
 
 @app.route('/administrarFood')
 def administrarfood():
@@ -83,9 +82,31 @@ def administrarEvents():
     #pasamos esos datos como parametros para que el html de esta pagina los renderice por medio de un Bucle for
     return render_template('administrarEvents.html', datos= data)
 
+@app.route('/administrarClientes')
+def administrarClientes():
+    #traemos los datos de la base de datos para mostrarlos cuando se vea esta pagina
+    cursor = db.connection.cursor()
+    cursor.execute('SELECT * FROM registro')
+    data = cursor.fetchall()#esta funcion guarda los datos selecionados de la tabla de la BD
+    #print(data)
+    #pasamos esos datos como parametros para que el html de esta pagina los renderice por medio de un Bucle for
+    return render_template('viewsAdministrar/administrarClientes.html', datos= data)
+
+
 
 
 #rutas del cliente user diferente a admin01
+
+#esta ruta sale despuesde iniciar sesion con el usuario de un cliente
+@app.route('/productos')
+def productos():
+    cursor = db.connection.cursor()
+    cursor.execute('SELECT * FROM registro')#ejecutamos la sentencia SQL con el cursor
+    cuenta = cursor.fetchall()#y guardamos los datos que me trae la ejecucion de la sentencia
+    print(cuenta)
+    return render_template('productos-inicio.html', cuenta=cuenta[1])
+
+#ruta que muetra el CRUD DE comida para el cliente
 @app.route('/comida')
 def comida():
     cursor = db.connection.cursor()
@@ -95,6 +116,8 @@ def comida():
     #pasamos esos datos como parametros para que el html de esta pagina los renderice por medio de un Bucle for
     return render_template('viewsClient/comida.html', datos= data)
 
+
+#ruta que muestra el CRUD de eventos para clientes
 @app.route('/eventosDisponibles')
 def eventosDisponibles():
     cursor = db.connection.cursor()
@@ -105,7 +128,13 @@ def eventosDisponibles():
     return render_template('viewsClient/eventos.html', datos=data)
 
 
-#rutas para la pagina Login y Registro
+
+
+
+
+
+
+#rutas y configuraciones para la pagina Login y Registro
 
 #Ruta Registro
 #metodos [POST, GET, UPDATE, DELETE] Base de Datos
@@ -134,23 +163,28 @@ def add():
                                                            #de la ruta que queremos redirecionarno
         
 #Login
-#metodo validar datos de iniciar sesion
+#metodo validar datos de iniciar sesion, adicional sirve par recuperar el id y poder luego mostrar los datos del cliente en la pagina cuenta
 @app.route('/inicio', methods=['GET', 'POST'])                                                     
 def iniciar_sesion():
     if request.method == 'POST':#validamos que sea el metodo Post
-        usuario = request.form['username'] #recuperamos los valosresde los inputs del respectivo template y los guardamos en una variable
+        usuario = request.form['username']#recuperamos los valosresde los inputs del respectivo template y los guardamos en una variable
         contraseña = request.form['password']
-        # print(usuario)
-        # print(contraseña)
+        print('datos')
+        print(usuario)
+        print(contraseña)
 
         if usuario != 'admin01':
             cursor = db.connection.cursor()#creamos el cursor para manejar la conexion a la base de datos y lo guardamos en una barible para que se mas comodo
+            cursor = db.connection.cursor()#creamos el cursor para manejar la conexion a la base de datos y lo guardamos en una barible para que se mas comodo
             cursor.execute('SELECT * FROM registro WHERE usuario=%s AND contraseña=%s',(usuario, contraseña))#ejecutamos la sentencia SQL con el cursor
-            cuenta = cursor.fetchone()#y guardamos los datos que me trae la ejecucion de la sentencia            
+            cuenta = cursor.fetchone()#y guardamos los datos que me trae la ejecucion de la sentencia
+            print(cuenta) 
+                      
             if cuenta:
                 session['loggedin'] = True
                 session['username'] = cuenta[5] 
-                return redirect(url_for('productos'))
+                return render_template('productos-inicio.html', cuenta=cuenta)
+                #return redirect(url_for('productos'))
             else:
                 usuario=''
                 contraseña=''
@@ -173,6 +207,9 @@ def iniciar_sesion():
             
     
     return redirect(url_for('login'))
+
+
+
 
 
 
@@ -338,13 +375,10 @@ def editEvents(id):
 def updateEvents(id):
     if request.method == 'POST':
         #recolectamos los datos del formulario
-        nombre = request.form['Nombre']#accedemos a los datos del formulario por la funcion request.form
+        nombre = request.form['Nombre']
         foto = request.files['File']
         descripcion = request.form['Descripcion']
         precio = request.form['Precio']
-        # print(nombre)
-        
-        
         
         #creamos el cursor 
         cursor = db.connection.cursor()
@@ -378,8 +412,106 @@ def updateEvents(id):
         #renderizamos la pagina requerida
         return redirect(url_for('administrarEvents'))   
     
+
+#ruta Eliminar Cliente
+@app.route('/deleteCliente/<string:id>')
+def deleteCliente(id):
+    cursor = db.connection.cursor()
+    cursor.execute('Delete FROM registro WHERE id = %s',[id])
+    db.connection.commit()
     
-#ruta pedir comida con el user cliente
+    
+    flash('El Cliente ha sido Removido con Exito')
+    return redirect(url_for('administrarClientes'))
+
+
+#ruta Editar Cliente
+@app.route('/editCliente/<string:id>')
+def editCliente(id):
+    #creamos el cursor para ejecutar loa sentencia SQL
+    cursor = db.connection.cursor()
+    #creamos la Sentencia
+    cursor.execute('SELECT * FROM registro WHERE id = %s',[id])
+    #recolectamos los datos de esa senyencia con el cursor y la funcion .fetchall()
+    data = cursor.fetchall()
+    #print(data[0])
+    #despues de terminar renderizamos la pagina
+    return render_template('viewsAdministrar/buscarCliente.html', datos = data[0])
+@app.route('/updateCliente/<string:id>', methods=['POST'])
+def updateCliente(id):
+    if request.method == 'POST':
+        #recolectamos los datos del formulario
+        nombre = request.form['Nombre']
+        apellido = request.form['Apellido']
+        celular = request.form['Celular']
+        email = request.form['Email']
+        contraseña = request.form['Contraseña']
+
+        #creamos el cursor 
+        cursor = db.connection.cursor()
+        
+        #creamos la sentencia SQL con el cursor
+        cursor.execute("""
+                    UPDATE registro 
+                    SET nombre = %s,
+                            apellido = %s,
+                            celular = %s,
+                            email = %s,
+                            contraseña = %s
+                        WHERE id = %s
+                    """, (nombre, apellido, celular, email, contraseña, id))
+        #ejecutamos esa sentencia SQL
+        db.connection.commit()
+        #mostramos un mensaje por pantalla
+        flash('Cliente Actualizado con Exito')
+        #renderizamos la pagina requerida
+        return redirect(url_for('administrarClientes'))   
+
+
+
+
+
+#ruta mostrar cuenta del Cliente
+@app.route('/cuentaCliente/<string:id>')
+def cuentaCliente(id):
+    cursor = db.connection.cursor()
+    #creamos la Sentencia
+    cursor.execute('SELECT * FROM registro WHERE id = %s',[id])
+    #recolectamos los datos de esa senyencia con el cursor y la funcion .fetchall()
+    data = cursor.fetchall()
+    print(data[0])
+    #despues de terminar renderizamos la pagina
+    return render_template('viewsClient/cuentaCliente.html', datos=data[0])
+
+@app.route('/updateCuentaCliente/<string:id>', methods=['POST'])
+def updateCuentaCliente(id):
+    if request.method == 'POST':
+        #recolectamos los datos del formulario
+        celular = request.form['Celular']
+        email = request.form['Email']
+        contraseña = request.form['Contraseña']
+
+        #creamos el cursor 
+        cursor = db.connection.cursor()
+        
+        #creamos la sentencia SQL con el cursor
+        cursor.execute("""
+                    UPDATE registro 
+                    SET celular = %s,
+                            email = %s,
+                            contraseña = %s
+                        WHERE id = %s
+                    """, (celular, email, contraseña, id))
+        #ejecutamos esa sentencia SQL
+        db.connection.commit()
+        #mostramos un mensaje por pantalla
+        flash('Su cuenta se ha Actualizado con Exito' )
+        #renderizamos la pagina requerida
+        return redirect(url_for('productos'))   
+
+
+
+
 
 #ruta añadir al carrito
 @app.route('/addCarrito', methods=['POST'])

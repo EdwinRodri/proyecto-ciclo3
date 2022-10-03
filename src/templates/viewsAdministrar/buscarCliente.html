@@ -10,7 +10,7 @@
 {% block body %}
 
 <div class="card formCrear">
-  <form action="/update/{{datos.0}}" method="post" enctype="multipart/form-data" class="input flex-nowrap">
+  <form action="/updateCliente/{{datos.0}}" enctype="multipart/form-data" method="post" class="input flex-nowrap">
     <input
       type="text"
       name="Id"
@@ -19,52 +19,63 @@
       value="{{datos.0}}"
       hidden="true"
     />
-    
-    <h3>Editar Producto</h3>
+    <h3>Editar Cliente</h3>
     <label for="">Nombre</label>
     <input
       type="text"
       name="Nombre"
       id=""
-      placeholder="Nombre Comida"
+      placeholder="Nombre Evento"
       value="{{datos.1}}"
       class="form-control"
-      required
     />
-    <label for="">Imagen</label>
+    <label for="">Apellido</label>
     <input
       class="form-control"
-      type="file"
-      name="File"
+      type="text"
+      name="Apellido"
       id=""
+      class="form-control"
       value="{{datos.2}}"
-      class="form-control"
-      required
     />
-    <img class="img-thumbnail" width="80" src="../uploads/{{datos.2}}" alt=""></td>
-    <br>
-    <label for="">Descripcion</label>
+    <label for="">Celular</label>
     <input
+      class="form-control"
       type="text"
-      name="Descripcion"
+      name="Celular"
       id=""
-      placeholder="Nombre Comida"
+      class="form-control"
       value="{{datos.3}}"
-      class="form-control"
-      required
     />
-    <label for="">Precio</label>
+    <label for="">Email</label>
+    <input
+      class="form-control"
+      type="text"
+      name="Email"
+      id=""
+      class="form-control"
+      value="{{datos.4}}"
+    />
+    <br>
+    <label for="">Usuario</label>
     <input
       type="text"
-      name="Precio"
+      name="Usuario"
       id=""
-      placeholder="10"
-      value="{{datos.4}}"
+      value="{{datos.5}}"
       class="form-control"
-      required
+      disabled
+    />
+    <label for="">Contraseña</label>
+    <input
+      type="text"
+      name="Contraseña"
+      id=""
+      value="{{datos.6}}"
+      class="form-control"
     />
     <button type="submit" class="btn btn-warning">Editar</button>
-    <a href="/administrarFood" class="btn btn-dark">Cancelar</a>
+    <a href="/administrarClientes" class="btn btn-dark">Cancelar</a>
   </form>
 </div>
 

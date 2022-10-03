@@ -1,31 +1,24 @@
 const botones = document.getElementById('btnsReservar')
 const btnFila = document.getElementById('filaBtn')
+const btnArray = document.getElementById('arraybtns')
 const hora = document.getElementById('valorHora')
 
-console.log(hora.value)
 
-console.log(btnFila.lastElementChild)
-
-const arr = [btnFila]
-console.log(arr)
-
-btnFila.childNodes.forEach(element => {
-    element.addEventListener('click', () =>{
-        console.log(hora.value)
-    })
-});
-
-
-
+// btnArray.forEach(element => {
+//     element.addEventListener('click', () => {
+//         alert('buenas')
+//     })
+// });
+console.log([btnArray])
 
 btnFila.addEventListener('click', (e)=>{
     e.preventDefault();
-    console.log(e.target)
-    if(e.target.classList[0] == 'horaClase'){
-        console.log(hora.textContent)
-    }
     if (e.target.classList[1]=='btn-info'){
-        alert('hola')
+        console.log(botones.textContent)
+        swal('Reserva Exitosa')
+        botones.style.backgroundColor ='red'
+        botones.textContent = 'Cancelar Reserva'
+        console.log(e.target)
     }
  
 });

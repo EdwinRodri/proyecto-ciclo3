@@ -1,0 +1,25 @@
+.contendorAdministrarClientes{
+    
+    display: flex;
+    position: sticky;
+    top: 0;
+}
+.tarjeta{
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-top: 80px;
+    height: 120px;
+    margin-left: 30px;
+}
+
+.btnBuscarUser{
+    margin-top: 40px;
+}
+
+/* .btnEditarCliente{
+    text-decoration: none;
+    padding: 10px;
+    background-color:  rgb(44, 157, 244);
+    color: white;
+    margin-bottom: 10px;
+} */
