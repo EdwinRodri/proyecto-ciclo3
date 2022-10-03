@@ -1,20 +1,22 @@
-// const btnDisminuir = document.getElementById('btnDisminuir')
-// const btnAumentar = document.getElementById('btnAumentar')
-// const valorCantidad = document.getElementById('valorCantidad')
-// const agregarCarrito = document.getElementById('btnAgregar')
+const botones = document.getElementById('botonAgregarComida')
+const btnFila= document.getElementById('filaBtn')
+const cantidad= document.getElementById('cantidades')
 
 
-// console.log(valorCantidad.textContent)
 
-// agregarCarrito.addEventListener('click', (e)=>{
-//     let valor = valorCantidad.textContent
-//     Number(valor)
-//     valorCantidad.innerHTML= valor * 3
-// })
 
-const valor = document.getElementsByClassName('claseDeInputs')
+btnFila.addEventListener('click', (e)=>{
+    e.preventDefault();
+    if(e.target.classList[1]=='btn-primary'){
+        if (cantidad.value == '0'){
+            console.log(cantidad.value)
+            swal('warning', 'Porfavor ingrese una cantidad', 'error')
+        }else{
+            swal('Exito','Su Pedido llegara Pronto')
+        }
+    }
+    
+ 
+});
 
-valor.forEach(valores =>{
-    console.log(valores.value)
-})
 

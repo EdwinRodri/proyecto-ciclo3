@@ -19,7 +19,13 @@ btnFila.addEventListener('click', (e)=>{
         botones.style.backgroundColor ='red'
         botones.textContent = 'Cancelar Reserva'
         console.log(e.target)
+    }else if(botones.textContent == 'Cancelar Reserva'){
+        botones.style.backgroundColor ='purple'
+        botones.textContent = 'Reservar'
+        console.log(e.target)
+        swal('Reserva Cancelada')
     }
+   
  
 });
 

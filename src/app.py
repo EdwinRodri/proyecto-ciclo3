@@ -514,9 +514,9 @@ def updateCuentaCliente(id):
 
 
 #ruta añadir al carrito
-@app.route('/addCarrito', methods=['POST'])
-def addCarrito():
-    if request.method == 'POST': #validamos que sea el metodo POST
+# @app.route('/addCarrito', methods=['POST'])
+# def addCarrito():
+#     if request.method == 'POST': #validamos que sea el metodo POST
         nombre = request.form['NombreP']
         descripcion = request.form['DescripcionP']
         precio = request.form['PrecioP']

@@ -4,13 +4,14 @@
 <!-- creamos la ruta par los estilos css -->
 {% block customCSS %}
 <link rel="stylesheet" href="../static/css/comida.css" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 {% endblock %}
 {% block enlaceLogo %}
 <a class="navbar-brand" href="/productos"><i class="fa-solid fa-bowl-food"></i> Food&Events <i
     class="fa-solid fa-champagne-glasses"></i></a>
 {% endblock %}
 {% block link %}
-<a class="nav-link active" aria-current="page" href="#Crear"><i class="fa-solid fa-cart-shopping"></i> Carrito</a>
+
 
 {% endblock %}
 
@@ -34,8 +35,8 @@ mensage %}
 <!-- Aqui empieza la tabla -->
 
 <div class="contenedor_padre">
-  <div class="sectionTabla" id="Productos">
-    <form action="/addCarrito" method="post" enctype="multipart/form-data">
+  <div class="sectionTabla" id="filaBtn">
+    <form action="" > 
       <table class="table tablaStilo">
         <thead>
           <tr>
@@ -69,9 +70,9 @@ mensage %}
               <p>{{i.4}}</p>
               <input value="{{i.4}}" hidden="true" class="claseDeInputs" name="PrecioP">
             </td>
-            <td><input type="number" class="ingresarCantidad" style="width: 50px;" name="CantidadP"></td>
+            <td><input id="cantidades" type="number" class="ingresarCantidad" style="width: 50px;" name="CantidadP" value="0"></td>
             <td>
-              <button type="submit" class="btn btn-primary">Agregar</button> 
+              <button type="submit" class="btn btn-primary " id="botonAgregarComida">Agregar</button> 
               <!-- <a href="" class="btn btn-primary" type="submit">Agregar</a>  -->
             </td>
           </tr>
@@ -80,24 +81,7 @@ mensage %}
       </table>
     </form>
   </div>
-  <!-- {% for i in datos %}
 
-  <div class="container-productos" >
-    <form action=""></form>
-    <br>
-    <strong><p>{{i.1}}</p></strong>
-    <img src="uploads\{{i.2}}" width="80" alt="">
-    <p class="descripcion">{{i.3}}</p>
-    <strong><span id="valorCantidad">{{i.4}}</span></strong>
-    <div class="botones-cantidades" id="btnsCantidades">
-      <span>Cantidad:</span>
-      <input type="number" name="" id="" class="ingresarCantidad" style="width: 50px">
-    </div>
-    <button type="submit" class="btn btn-info" id="btnAgregar">Agregar</button>
-    <br>
-  </div>
-  
-{% endfor %} -->
 
 </div>
 
