@@ -11,7 +11,6 @@
     class="fa-solid fa-champagne-glasses"></i></a>
 {% endblock %}
 {% block link %}
-<a class="nav-link active" aria-current="page" href="#Crear"><i class="fa-solid fa-cart-shopping"></i> Carrito</a>
 
 {% endblock %}
 
@@ -45,7 +44,7 @@ mensage %}
           <p>{{i.1}}</p>
           <img class="img-thumbnail" width="200" src="../uploads/{{i.2}}" alt="">
           <p>{{i.3}}</p>
-          <input type="text" id="valorHora" class="horaClase" value="{{i.4}}">
+          <input type="text" id="valorHora" class="horaClase" value="{{i.4}}" disabled>
           <!-- <p id="valorHora" class="horaClase">{{i.4}}</p> -->
           <div id="arraybtns">
             <a href=""class="btn btn-info" id="btnsReservar" >Reservar</a>
