@@ -31,12 +31,14 @@
     text-align: center;
 }
 .contenedort-inicial{
+    background-color: rgb(33, 37, 41);
     display: flex;
     justify-content: center;
     text-align: center;
     align-items: center;
 }
 .parrafo-inicial{
+    color: white;
     width: 45%;
 }
     .parrafo-inicial{

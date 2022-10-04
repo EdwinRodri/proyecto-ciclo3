@@ -4,6 +4,9 @@
 <!-- creamos la ruta par los estilos css -->
 {% block customCSS %}
 <link rel="stylesheet" href="../static/css/inicio.css">
+<link rel="stylesheet" href="../static/css/reset.css">
+<link rel="stylesheet" href="../static/css/style.css">
+<link rel="stylesheet" href="../static/css/flexbox.css">
 {% endblock %}
 
 <!-- Creamos el body sel documento -->
@@ -18,20 +21,57 @@
                 <img src="../static/img/Programacion-web.png" alt="" class="img-contenedor"> 
                 <!-- <img src="../static/img/ComidaProyecto.jpg" alt="" class="img-contenedor">  -->
             </div>
-            <div class="parrafo-inicial"><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam odio error obcaecati quos recusandae? Officia iusto illum fugit, itaque voluptatibus doloribus natus cumque inventore quae officiis amet autem soluta quod libero laborum, eaque aliquid aut dolore ipsam laboriosam corporis! Molestias nihil cumque ab, inventore illo hic dicta omnis! Reiciendis, ipsum.</p></div>
+            <div class="parrafo-inicial"><p>Los eventos son aquellos fenómenos que surgen de ocasiones no rutinarias y que tienen objetivos de ocio, culturales, personales u organizativos establecidos de forma separada a la actividad normal diaria, cuya finalidad es ilustrar, celebrar, entretener o generar experiencias en un grupo de personas.</p></div>
         </div>
     </section>
+    <main class="contenidoPrincipal">
+		<div class="container">
+			<h2 class="subtitulo">Nuestros Tecnologias</h2>
+
+			<nav>
+				<ul class="contenidoPrincipal-cursos">
+					<li class="contenidoPrincipal-cursos-link"><a href="#">JavaScript</a></li>
+					<li class="contenidoPrincipal-cursos-link"><a href="#">Python</a></li>
+					<li class="contenidoPrincipal-cursos-link"><a href="#">Flask</a></li>
+					<li class="contenidoPrincipal-cursos-link"><a href="#">MySQL</a></li>
+					<li class="contenidoPrincipal-cursos-link"><a href="#">Flexbox</a></li>
+					<li class="contenidoPrincipal-cursos-link"><a href="#">Html</a></li>
+					<li class="contenidoPrincipal-cursos-link"><a href="#">CSS</a></li>
+					<li class="contenidoPrincipal-cursos-link"><a href="#">Boostrap</a></li>
+				</ul>
+			</nav>
+		</div>
+
+		<section class="videoSobre">
+			<div class="container">
+				<iframe class="videoSobre-video" width="560" height="315" src="https://www.youtube.com/embed/CBYDzpXrVsE" frameborder="0" allowfullscreen></iframe>
+				
+				<div class="videoSobre-sobre">
+					<h2 class="videoSobre-sobre-title">Ventajas de Estar con nosotros</h2>
+					<ul class="videoSobre-sobre-list">
+						<li class="videoSobre-sobre-item">Disfruta de la mejor Comida</li>
+						<li class="videoSobre-sobre-item">Disfruta de los mejores Eventos</li>
+						<li class="videoSobre-sobre-item">La mejor Atencion</li>
+					</ul>
+					<button class="videoSobre-button btn btn-info">Contactanos yaaaa!!!</button>
+				</div>
+			</div>
+		</section>
+
+	</main>
     <!-- Section Abou Us -->
     <section id="about" class="section-contenedor">
         <div class="section-title">
             <h1 >About Us</h1>
         </div>
+        <br>
+        <br>
         <div class="section-segunda">
             <div >
                 <img src="../static/img/programacionpor.png" alt="" class="section-about-img">
             </div>
             <div class="text-about">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, nostrum sunt cumque mollitia repellat sed quae inventore culpa exercitationem illum nulla reprehenderit, corporis a eum itaque debitis repudiandae voluptate excepturi tempore! Nulla fuga dolore, repellat enim perspiciatis quas officia provident aliquam repellendus recusandae itaque nisi consequatur dolores veritatis iure molestias ratione pariatur dicta eligendi fugiat voluptas? Provident, iusto? Labore eos, eius nam dolores, perferendis repellat iste sit nemo non sequi delectus deserunt nihil neque quasi rerum facilis consectetur quae. Architecto accusantium, aliquam ipsam voluptatum quam est voluptas, quibusdam iure et maxime hic, cum suscipit eum recusandae. Voluptate facere nulla consequatur.</p>
+                <p>Este autor dice que hay que tener en cuenta que los eventos no incluyen solo elementos tangibles sino que también existen otros como son la expectación y las emociones. Por tanto, los elementos principales que lo define son irrepetible, único, intangibles, con un alto nivel de contacto personal e interacción, que requiere una intensidad de trabajo y en un espacio de tiempo limitado.</p>
             </div>
         </div>
     </section>

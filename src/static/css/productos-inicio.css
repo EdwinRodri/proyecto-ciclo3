@@ -13,13 +13,18 @@ p{
     font-size: 20px;
 }
 .p-events{
-    margin-right: 45px;
+    color: white;
+    font-size: 20px;
+    margin-left: 45px;
+    margin-right: 70px;
+    width: 600px;
     
 }
 .p-food{
     margin-left: 45px;
 }
 .contenedor_events{
+    background-color: rgb(33, 37, 41);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -65,6 +70,12 @@ p{
         .boton-food{
             margin-left:45px;
         }
+
+.eventos-productos{
+    margin-left: 20px;
+    width: 700px;
+}
+
 
 @media (max-width: 868px){
     .contenedor-products{
